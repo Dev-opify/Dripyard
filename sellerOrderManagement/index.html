@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DripYard Orders</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>
+            DripYard Orders
+            <div class="logo">DripYard</div>
+        </h1>
+        <p>Manage your streetwear orders and deliveries</p>
+    </header>
+
+    <div class="controls">
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" placeholder="Search orders...">
+        </div>
+        <div class="filter-dropdown">
+            <span class="filter-icon">🔽</span>
+            All Orders
+        </div>
+        <input type="date" class="date-input" placeholder="dd-mm-yyyy">
+    </div>
+
+    <div class="orders-table">
+        <div class="table-header">
+            <div>Order ID</div>
+            <div>Product</div>
+            <div>Buyer</div>
+            <div>Date</div>
+            <div>Status</div>
+            <div>Total</div>
+            <div>Actions</div>
+        </div>
+
+        <div class="table-row">
+            <div class="order-id">ORD-001</div>
+            <div class="product-name">Supreme Box Logo Hoodie</div>
+            <div class="buyer-email">alex.jones@email.com</div>
+            <div class="date">1/14/2024</div>
+            <div><span class="status pending">Pending</span></div>
+            <div class="total">$299.99</div>
+            <div class="actions">
+                <button class="view-details-btn">👁 View Details</button>
+                <select class="update-dropdown">
+                    <option>Update</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="table-row">
+            <div class="order-id">ORD-002</div>
+            <div class="product-name">Off-White Chicago 1s</div>
+            <div class="buyer-email">mike.chen@email.com</div>
+            <div class="date">1/13/2024</div>
+            <div><span class="status shipped">Shipped</span></div>
+            <div class="total">$2499.99</div>
+            <div class="actions">
+                <button class="view-details-btn">👁 View Details</button>
+                <select class="update-dropdown">
+                    <option>Update</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="table-row">
+            <div class="order-id">ORD-003</div>
+            <div class="product-name">Travis Scott Jordan 1</div>
+            <div class="buyer-email">sarah.kim@email.com</div>
+            <div class="date">1/12/2024</div>
+            <div><span class="status delivered">Delivered</span></div>
+            <div class="total">$1899.99</div>
+            <div class="actions">
+                <button class="view-details-btn">👁 View Details</button>
+                <select class="update-dropdown">
+                    <option>Update</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="table-row">
+            <div class="order-id">ORD-004</div>
+            <div class="product-name">Yeezy Boost 350 V2</div>
+            <div class="buyer-email">james.wilson@email.com</div>
+            <div class="date">1/11/2024</div>
+            <div><span class="status pending">Pending</span></div>
+            <div class="total">$399.99</div>
+            <div class="actions">
+                <button class="view-details-btn">👁 View Details</button>
+                <select class="update-dropdown">
+                    <option>Update</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="table-row">
+            <div class="order-id">ORD-005</div>
+            <div class="product-name">Dior Jordan 1 High</div>
+            <div class="buyer-email">emma.davis@email.com</div>
+            <div class="date">1/10/2024</div>
+            <div><span class="status delivered">Delivered</span></div>
+            <div class="total">$8999.99</div>
+            <div class="actions">
+                <button class="view-details-btn">👁 View Details</button>
+                <select class="update-dropdown">
+                    <option>Update</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="table-row">
+            <div class="order-id">ORD-006</div>
+            <div class="product-name">Fear of God Essentials</div>
+            <div class="buyer-email">david.brown@email.com</div>
+            <div class="date">1/9/2024</div>
+            <div><span class="status shipped">Shipped</span></div>
+            <div class="total">$199.99</div>
+            <div class="actions">
+                <button class="view-details-btn">👁 View Details</button>
+                <select class="update-dropdown">
+                    <option>Update</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-number pending">2</div>
+            <div class="stat-label">Pending Orders</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number shipped">2</div>
+            <div class="stat-label">Shipped Orders</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number delivered">2</div>
+            <div class="stat-label">Delivered Orders</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

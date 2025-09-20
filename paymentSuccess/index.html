@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Successful</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <button class="toggle-btn" onclick="toggleFailure()">Toggle to Failure</button>
+  
+  <div class="success-container">
+    <div class="success-icon">
+      <span class="checkmark">✓</span>
+    </div>
+    
+    <h1 class="success-title">Payment Successful</h1>
+    
+    <p class="success-message">
+      Order #12345 has been placed successfully.
+    </p>
+    
+    <button class="primary-btn" onclick="goToOrders()">Go to My Orders</button>
+    <br>
+    <button class="secondary-btn" onclick="continueShopping()">Continue Shopping</button>
+  </div>
+
+  <div class="brand">DripYard</div>
+  
+
+  <script src="script.js"></script>
+</body>
+</html>

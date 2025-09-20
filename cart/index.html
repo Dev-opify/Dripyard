@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Your Cart - DripYard</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Your Cart</h1>
+        </div>
+
+        <div class="cart-layout">
+            <div class="cart-items">
+                <div class="table-header">
+                    <div>Product</div>
+                    <div>Price</div>
+                    <div>Quantity</div>
+                    <div>Total</div>
+                </div>
+
+                <div class="cart-item">
+                    <div class="product-info">
+                        <div class="product-image hoodie-img"></div>
+                        <div class="product-details">
+                            <h3>DripYard Essential Hoodie</h3>
+                            <p class="product-color">Color: Black</p>
+                        </div>
+                    </div>
+                    <div class="price">$120</div>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="updateQuantity(0, -1)">-</button>
+                        <input type="number" class="quantity-input" value="2" id="qty-0" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(0, 1)">+</button>
+                    </div>
+                    <div class="item-total" id="total-0">$240</div>
+                    <button class="remove-btn" onclick="removeItem(0)">×</button>
+                </div>
+
+                <div class="cart-item">
+                    <div class="product-info">
+                        <div class="product-image sneakers-img"></div>
+                        <div class="product-details">
+                            <h3>DripYard Elite Sneakers</h3>
+                            <p class="product-color">Color: White/Red</p>
+                        </div>
+                    </div>
+                    <div class="price">$180</div>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="updateQuantity(1, -1)">-</button>
+                        <input type="number" class="quantity-input" value="1" id="qty-1" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(1, 1)">+</button>
+                    </div>
+                    <div class="item-total" id="total-1">$180</div>
+                    <button class="remove-btn" onclick="removeItem(1)">×</button>
+                </div>
+
+                <div class="cart-item">
+                    <div class="product-info">
+                        <div class="product-image cap-img"></div>
+                        <div class="product-details">
+                            <h3>DripYard Signature Cap</h3>
+                            <p class="product-color">Color: Black</p>
+                        </div>
+                    </div>
+                    <div class="price">$45</div>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="updateQuantity(2, -1)">-</button>
+                        <input type="number" class="quantity-input" value="1" id="qty-2" readonly>
+                        <button class="quantity-btn" onclick="updateQuantity(2, 1)">+</button>
+                    </div>
+                    <div class="item-total" id="total-2">$45</div>
+                    <button class="remove-btn" onclick="removeItem(2)">×</button>
+                </div>
+            </div>
+
+            <div class="order-summary">
+                <h2 class="summary-title">Order Summary</h2>
+                
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">$465</span>
+                </div>
+                
+                <div class="summary-row">
+                    <span>Shipping</span>
+                    <span id="shipping">$15</span>
+                </div>
+
+                <div class="coupon-section">
+                    <div class="coupon-input">
+                        <input type="text" class="coupon-field" placeholder="Coupon code">
+                        <button class="apply-btn">Apply</button>
+                    </div>
+                </div>
+
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span class="amount" id="grand-total">$480</span>
+                </div>
+
+                <button class="checkout-btn">Proceed to Checkout</button>
+                
+                <div class="shipping-info">Free shipping on orders over $150</div>
+                <div class="ssl-info">Secure checkout with SSL encryption</div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings - DripYard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Account Settings</h1>
+            <p>Manage your DripYard account information</p>
+        </div>
+        
+        <div class="section">
+            <h2>Personal Information</h2>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="person-icon">Full Name</label>
+                    <input type="text" placeholder="Jordan Smith">
+                </div>
+                <div class="form-group">
+                    <label class="email-icon">Email Address</label>
+                    <input type="email" placeholder="jordan@example.com">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="phone-icon">Phone Number</label>
+                    <input type="tel" placeholder="+1 (555) 123-4567">
+                </div>
+                <div class="form-group"></div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Shipping Address</h2>
+            
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label class="location-icon">Street Address</label>
+                    <input type="text" placeholder="123 Streetwear Ave">
+                </div>
+            </div>
+            
+            <div class="city-state-zip">
+                <div class="form-group">
+                    <label class="location-icon">City</label>
+                    <input type="text" placeholder="Los Angeles">
+                </div>
+                <div class="form-group">
+                    <label class="location-icon">State</label>
+                    <input type="text" placeholder="CA">
+                </div>
+                <div class="form-group">
+                    <label class="location-icon">Zip Code</label>
+                    <input type="text" placeholder="90210">
+                </div>
+            </div>
+            
+            <div class="save-btn">
+                <button class="btn-primary" id="saveAccountBtn">Save Account Changes</button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Change Password</h2>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="lock-icon">Current Password</label>
+                    <input type="password" placeholder="Enter your current password">
+                </div>
+                <div class="form-group"></div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="lock-icon">New Password</label>
+                    <input type="password" placeholder="Enter your new password">
+                </div>
+                <div class="form-group"></div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="lock-icon">Confirm New Password</label>
+                    <input type="password" placeholder="Enter your confirm new password">
+                </div>
+                <div class="form-group"></div>
+            </div>
+            
+            <div class="save-btn">
+                <button class="btn-primary" id="updatePasswordBtn">Update Password</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

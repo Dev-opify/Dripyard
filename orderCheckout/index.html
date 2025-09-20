@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DripYard - Complete your order</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>DripYard</h1>
+            <p>Complete your order</p>
+        </div>
+
+        <div class="main-content">
+            <div class="left-column">
+                <div class="form-section">
+                    <div class="section-header">
+                        <span class="section-icon">📍</span>
+                        <h2 class="section-title">Delivery Address</h2>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <span class="label-icon">👤</span>
+                                Full Name
+                            </label>
+                            <input type="text" class="form-input" placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <span class="label-icon">📱</span>
+                                Mobile Number
+                            </label>
+                            <input type="tel" class="form-input" placeholder="10-digit mobile number">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <span class="label-icon">🏠</span>
+                            Address
+                        </label>
+                        <input type="text" class="form-input" placeholder="Street address, building, apartment">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">City</label>
+                            <input type="text" class="form-input" placeholder="City">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Pincode</label>
+                            <input type="text" class="form-input" placeholder="6-digit pincode">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">State</label>
+                            <input type="text" class="form-input" placeholder="State">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Country</label>
+                            <select class="form-select">
+                                <option>India</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section payment-section">
+                    <div class="section-header">
+                        <span class="section-icon">💳</span>
+                        <h2 class="section-title">Payment Method</h2>
+                    </div>
+
+                    <div class="payment-methods">
+                        <div class="payment-method active" onclick="selectPayment(this)">
+                            <div class="payment-icon">📱</div>
+                            <div class="payment-label">UPI</div>
+                        </div>
+                        <div class="payment-method" onclick="selectPayment(this)">
+                            <div class="payment-icon">💳</div>
+                            <div class="payment-label">Card</div>
+                        </div>
+                        <div class="payment-method" onclick="selectPayment(this)">
+                            <div class="payment-icon">🚚</div>
+                            <div class="payment-label">COD</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-summary">
+                <div class="section-header">
+                    <span class="section-icon">🛍️</span>
+                    <h2 class="section-title">Order Summary</h2>
+                </div>
+
+                <div class="order-item">
+                    <div class="item-image" style="background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                    <div class="item-details">
+                        <div class="item-name">DripYard Premiu...</div>
+                        <div class="item-quantity">Qty: 1</div>
+                    </div>
+                    <div class="item-price">₹2,499</div>
+                </div>
+
+                <div class="order-item">
+                    <div class="item-image" style="background-image: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                    <div class="item-details">
+                        <div class="item-name">Street Style Jogg...</div>
+                        <div class="item-quantity">Qty: 2</div>
+                    </div>
+                    <div class="item-price">₹3,798</div>
+                </div>
+
+                <div class="order-item">
+                    <div class="item-image" style="background-image: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                    <div class="item-details">
+                        <div class="item-name">Urban Cap Collection</div>
+                        <div class="item-quantity">Qty: 1</div>
+                    </div>
+                    <div class="item-price">₹799</div>
+                </div>
+
+                <div class="order-totals">
+                    <div class="total-row">
+                        <span>Subtotal</span>
+                        <span>₹7,096</span>
+                    </div>
+                    <div class="total-row">
+                        <span>🚚 Shipping</span>
+                        <span>₹99</span>
+                    </div>
+                    <div class="total-row discount">
+                        <span>% Discount</span>
+                        <span>-₹200</span>
+                    </div>
+                </div>
+
+                <div class="final-total">
+                    <span>Total</span>
+                    <span class="price">₹6,995</span>
+                </div>
+
+                <button class="place-order-btn">
+                    <span class="label-icon">🏷️</span>
+                    Place Order - ₹6,995
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

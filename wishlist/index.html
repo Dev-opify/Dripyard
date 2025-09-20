@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Wishlist - DripYard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span class="heart-icon">❤️</span>
+                Your Wishlist
+            </h1>
+            <p class="subtitle">Keep track of your favorite DripYard pieces</p>
+        </div>
+
+        <div class="main-content">
+            <div class="wishlist-section">
+                <div class="section-header">
+                    <h2 class="section-title">4 Items</h2>
+                    <span class="updated-time">Updated just now</span>
+                </div>
+
+                <div class="wishlist-item">
+                    <div class="product-image hoodie-img">👤</div>
+                    <div class="product-info">
+                        <h3 class="product-name">DripYard Essential Hoodie</h3>
+                        <p class="product-color color-midnight">Color: Midnight Black</p>
+                        <div style="display: flex; align-items: center;">
+                            <span class="product-price">$129.99</span>
+                            <span class="stock-badge in-stock">In Stock</span>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="move-to-cart-btn">🛒 Move to Cart</button>
+                        <button class="remove-btn" onclick="removeItem(this)">×</button>
+                    </div>
+                </div>
+
+                <div class="wishlist-item">
+                    <div class="product-image pants-img">👖</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Urban Cargo Pants</h3>
+                        <p class="product-color color-olive">Color: Olive Green</p>
+                        <div style="display: flex; align-items: center;">
+                            <span class="product-price">$89.99</span>
+                            <span class="stock-badge in-stock">In Stock</span>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="move-to-cart-btn">🛒 Move to Cart</button>
+                        <button class="remove-btn" onclick="removeItem(this)">×</button>
+                    </div>
+                </div>
+
+                <div class="wishlist-item">
+                    <div class="product-image sneakers-img">👟</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Street Runner Sneakers</h3>
+                        <p class="product-color color-triple">Color: Triple White</p>
+                        <div style="display: flex; align-items: center;">
+                            <span class="product-price">$199.99</span>
+                            <span class="stock-badge out-of-stock">Out of Stock</span>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="move-to-cart-btn unavailable">🚫 Unavailable</button>
+                        <button class="remove-btn" onclick="removeItem(this)">×</button>
+                    </div>
+                </div>
+
+                <div class="wishlist-item">
+                    <div class="product-image tee-img">👕</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Oversized Graphic Tee</h3>
+                        <p class="product-color color-acid">Color: Acid Wash</p>
+                        <div style="display: flex; align-items: center;">
+                            <span class="product-price">$59.99</span>
+                            <span class="stock-badge in-stock">In Stock</span>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="move-to-cart-btn">🛒 Move to Cart</button>
+                        <button class="remove-btn" onclick="removeItem(this)">×</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="summary-card">
+                    <h3 class="summary-title">📊 Wishlist Summary</h3>
+                    <p class="summary-text">You have <span class="highlight-number">4</span> items in your wishlist</p>
+                    <button class="sidebar-btn view-cart-btn">👁️ View Cart</button>
+                    <button class="sidebar-btn checkout-btn">🛍️ Proceed to Checkout</button>
+                </div>
+
+                <div class="summary-card pro-tip-card">
+                    <h3 class="summary-title"><span class="pro-tip-icon">💡</span> Pro Tip</h3>
+                    <p class="summary-text">
+                        Items in your wishlist are reserved for 24 hours. Move them to cart to secure your favorites!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

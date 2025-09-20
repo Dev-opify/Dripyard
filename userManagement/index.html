@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>User Management - DripYard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1 class="page-title">User Management</h1>
+        <p class="page-description">Manage users, roles, and permissions across your DripYard platform</p>
+    </div>
+
+    <!-- Search and Filter -->
+    <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" class="search-input" placeholder="Search users by name, email, or ID..." />
+        <select class="filter-dropdown">
+            <option value="all">All Users</option>
+            <option value="admin">Admin</option>
+            <option value="editor">Editor</option>
+            <option value="viewer">Viewer</option>
+        </select>
+    </div>
+
+    <!-- Users Table -->
+    <div class="users-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example user -->
+                <tr>
+                    <td class="user-id">USR001</td>
+                    <td class="user-name">John Doe</td>
+                    <td class="user-email">John@dripyard.com</td>
+                    <td><span class="role-badge role-admin">Admin</span></td>
+                    <td>
+                        <div class="status-toggle">
+                            <div class="toggle-switch active" onclick="toggleStatus(this)"></div>
+                            <span class="status-text status-active">Active</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="actions-cell">
+                            <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="more-btn"><i class="fas fa-ellipsis-h"></i></button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="user-id">USR002</td>
+                    <td class="user-name">Farah Khan</td>
+                    <td class="user-email">farah@dripyard.com</td>
+                    <td><span class="role-badge role-admin">Admin</span></td>
+                    <td>
+                        <div class="status-toggle">
+                            <div class="toggle-switch active" onclick="toggleStatus(this)"></div>
+                            <span class="status-text status-active">Active</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="actions-cell">
+                            <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="more-btn"><i class="fas fa-ellipsis-h"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="user-id">USR003</td>
+                    <td class="user-name">Deryl Dixon</td>
+                    <td class="user-email">deryl@dripyard.com</td>
+                    <td><span class="role-badge role-admin">Admin</span></td>
+                    <td>
+                        <div class="status-toggle">
+                            <div class="toggle-switch active" onclick="toggleStatus(this)"></div>
+                            <span class="status-text status-active">Active</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="actions-cell">
+                            <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="more-btn"><i class="fas fa-ellipsis-h"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="user-id">USR004</td>
+                    <td class="user-name">Marcus Johnson</td>
+                    <td class="user-email">marcus@dripyard.com</td>
+                    <td><span class="role-badge role-admin">Admin</span></td>
+                    <td>
+                        <div class="status-toggle">
+                            <div class="toggle-switch active" onclick="toggleStatus(this)"></div>
+                            <span class="status-text status-active">Active</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="actions-cell">
+                            <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="more-btn"><i class="fas fa-ellipsis-h"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="user-id">USR005</td>
+                    <td class="user-name">Sarah Chan</td>
+                    <td class="user-email">sarah@dripyard.com</td>
+                    <td><span class="role-badge role-admin">Admin</span></td>
+                    <td>
+                        <div class="status-toggle">
+                            <div class="toggle-switch active" onclick="toggleStatus(this)"></div>
+                            <span class="status-text status-active">Active</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="actions-cell">
+                            <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="more-btn"><i class="fas fa-ellipsis-h"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="user-id">USR006</td>
+                    <td class="user-name">Alex Thompson</td>
+                    <td class="user-email">alex@dripyard.com</td>
+                    <td><span class="role-badge role-admin">Admin</span></td>
+                    <td>
+                        <div class="status-toggle">
+                            <div class="toggle-switch active" onclick="toggleStatus(this)"></div>
+                            <span class="status-text status-active">Active</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="actions-cell">
+                            <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
+                            <button class="more-btn"><i class="fas fa-ellipsis-h"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                <!-- Add other users here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Statistics -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number total">6</div>
+            <div class="stat-label">Total Users</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number active">4</div>
+            <div class="stat-label">Active Users</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number inactive">2</div>
+            <div class="stat-label">Inactive Users</div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

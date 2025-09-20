@@ -1,0 +1,171 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #000000;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.success-container {
+  text-align: center;
+  color: white;
+  max-width: 500px;
+  padding: 40px 20px;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  background: #e53e3e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 40px;
+  box-shadow: 0 0 30px rgba(229, 62, 62, 0.4);
+}
+
+.checkmark {
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.success-title {
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.success-message {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 40px;
+  line-height: 1.5;
+}
+
+.primary-btn {
+  background: #e53e3e;
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.2s ease;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.primary-btn:hover {
+  background: #c53030;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+}
+
+.secondary-btn {
+  color: rgba(255, 255, 255, 0.7);
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.secondary-btn:hover {
+  color: white;
+}
+
+.brand {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  color: #e53e3e;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.made-in {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  background: white;
+  color: #2d3748;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bolt-icon {
+  width: 16px;
+  height: 16px;
+  background: #2d3748;
+  border-radius: 2px;
+  position: relative;
+}
+
+.bolt-icon::before {
+  content: '⚡';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .success-container {
+    padding: 20px;
+  }
+  
+  .success-title {
+    font-size: 28px;
+  }
+  
+  .brand, .made-in {
+    position: static;
+    margin-top: 40px;
+  }
+  
+  .toggle-btn {
+    top: 10px;
+    right: 10px;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}

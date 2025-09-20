@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management - DripYard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <h1>Product Management</h1>
+            <p>Manage your DripYard inventory</p>
+        </div>
+        <button class="add-btn">
+            <span>+</span>
+            Add Product
+        </button>
+    </div>
+
+    <div class="container">
+        <div class="product-table">
+            <div class="table-header">
+                <div>Product</div>
+                <div>Name</div>
+                <div>Price</div>
+                <div>Stock</div>
+                <div>Status</div>
+                <div>Actions</div>
+            </div>
+
+            <div class="product-row">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iOCIgZmlsbD0iIzFmMjkzNyIvPgo8cGF0aCBkPSJNMTUgMTVIMzBMMzcuNSAzMEgzN0wyMi41IDQ1SDE1VjE1WiIgZmlsbD0iI0Y5N0EzNiIvPgo8cGF0aCBkPSJNMzAgMTVINDVWNDVIMzcuNUwzMCAzMFYxNVoiIGZpbGw9IiNGMTVBMjQiLz4KPHA+PC9wPgo8L3N2Zz4K" alt="Premium Streetwear Hoodie" class="product-image">
+                <div class="product-name">Premium Streetwear Hoodie</div>
+                <div class="product-price">$89.99</div>
+                <div class="product-stock">25</div>
+                <div><span class="status-active">Active</span></div>
+                <div class="actions">
+                    <button class="edit-btn"><span>✏️</span>Edit</button>
+                    <button class="delete-btn">🗑️</button>
+                </div>
+            </div>
+
+            <div class="product-row">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iOCIgZmlsbD0iIzFmMjkzNyIvPgo8ZWxsaXBzZSBjeD0iMzAiIGN5PSI0MCIgcng9IjIwIiByeT0iOCIgZmlsbD0iI0Y5RkFGQiIvPgo8ZWxsaXBzZSBjeD0iMzAiIGN5PSI0MCIgcng9IjE4IiByeT0iNiIgZmlsbD0iIzM3NDE1MSIvPgo8cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIyNSIgcng9IjQiIGZpbGw9IiNGOUZBRkIiLz4KPHJlY3QgeD0iMjIiIHk9IjIyIiB3aWR0aD0iMTYiIGhlaWdodD0iMjEiIHJ4PSIyIiBmaWxsPSIjMzc0MTUxIi8+CjwvcD4KPC9zdmc+Cg==" alt="Designer Sneakers" class="product-image">
+                <div class="product-name">Designer Sneakers</div>
+                <div class="product-price">$159.99</div>
+                <div class="product-stock">12</div>
+                <div><span class="status-active">Active</span></div>
+                <div class="actions">
+                    <button class="edit-btn"><span>✏️</span>Edit</button>
+                    <button class="delete-btn">🗑️</button>
+                </div>
+            </div>
+
+            <div class="product-row">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iOCIgZmlsbD0iIzFmMjkzNyIvPgo8Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIyMCIgZmlsbD0iIzM3NDE1MSIvPgo8Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIxOCIgZmlsbD0iIzJkMzc0OCIvPgo8cGF0aCBkPSJNMjAgMjVIMzVMMzAgMzVIMjBWMjVaIiBmaWxsPSIjNDY1NTY5Ii8+Cjwvc3ZnPgo=" alt="Limited Edition Cap" class="product-image">
+                <div class="product-name">Limited Edition Cap</div>
+                <div class="product-price">$34.99</div>
+                <div class="product-stock">0</div>
+                <div><span class="status-inactive">Inactive</span></div>
+                <div class="actions">
+                    <button class="edit-btn"><span>✏️</span>Edit</button>
+                    <button class="delete-btn">🗑️</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

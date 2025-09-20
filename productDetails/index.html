@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Cotton T-Shirt - FASHION</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">FASHION</div>
+        <nav class="nav">
+            <a href="#">Men</a>
+            <a href="#">Women</a>
+            <a href="#">New</a>
+            <a href="#">Sale</a>
+        </nav>
+        <div class="header-actions">
+            <div style="cursor: pointer;">🔍</div>
+            <div style="cursor: pointer;">👤</div>
+            <div class="cart-icon">
+                🛒
+                <span class="cart-count">1</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="product-section">
+            <div class="product-images">
+                <div class="main-image" id="mainImage"></div>
+                <div class="thumbnail-grid">
+                    <div class="thumbnail active" data-image="1"></div>
+                    <div class="thumbnail" data-image="2"></div>
+                    <div class="thumbnail" data-image="3"></div>
+                    <div class="thumbnail" data-image="4"></div>
+                </div>
+            </div>
+
+            <div class="product-details">
+                <h1>Premium Cotton T-Shirt</h1>
+                
+                <div class="rating">
+                    <div class="stars">★★★★★</div>
+                    <span class="review-count">(24 reviews)</span>
+                </div>
+
+                <div class="price-section">
+                    <span class="current-price">$29.99</span>
+                    <span class="original-price">$39.99</span>
+                    <span class="discount-badge">25% OFF</span>
+                </div>
+
+                <p class="description">
+                    Experience ultimate comfort with our premium cotton t-shirt. Crafted from the finest materials for everyday wear.
+                </p>
+
+                <div class="option-group">
+                    <label class="option-label">Size</label>
+                    <div class="size-options">
+                        <button class="size-option">XS</button>
+                        <button class="size-option">S</button>
+                        <button class="size-option selected">M</button>
+                        <button class="size-option">L</button>
+                        <button class="size-option">XL</button>
+                        <button class="size-option">XXL</button>
+                    </div>
+                </div>
+
+                <div class="option-group">
+                    <label class="option-label">Color</label>
+                    <div class="color-options">
+                        <div class="color-option color-black selected"></div>
+                        <div class="color-option color-white"></div>
+                        <div class="color-option color-red"></div>
+                        <div class="color-option color-blue"></div>
+                    </div>
+                </div>
+
+                <div class="quantity-selector">
+                    <label class="option-label">Quantity</label>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                        <input type="number" class="quantity-input" value="1" min="1" id="quantity">
+                        <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary">Add to Cart</button>
+                    <button class="btn btn-secondary">Buy Now</button>
+                    <button class="icon-btn">♡</button>
+                    <button class="icon-btn">↗</button>
+                </div>
+
+                <div class="product-tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" onclick="showTab('details')">Details</button>
+                        <button class="tab-btn" onclick="showTab('materials')">Materials</button>
+                        <button class="tab-btn" onclick="showTab('reviews')">Reviews (24)</button>
+                    </div>
+                    
+                    <div class="tab-content" id="tab-content">
+                        <p>Classic fit premium cotton t-shirt with reinforced seams for durability.</p>
+                        <ul class="features">
+                            <li>Crew neckline</li>
+                            <li>Short sleeves</li>
+                            <li>Machine washable</li>
+                            <li>Pre-shrunk fabric</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="related-section">
+            <div class="section-header">
+                <h2 class="section-title">You Might Also Like</h2>
+                <div class="nav-arrows">
+                    <button class="arrow-btn">‹</button>
+                    <button class="arrow-btn">›</button>
+                </div>
+            </div>
+
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image"></div>
+                    <div class="product-info">
+                        <h3 class="product-title">Classic White Tee</h3>
+                        <div class="product-price">
+                            <span class="price">$24.99</span>
+                            <span class="old-price">$29.99</span>
+                        </div>
+                        <div class="color-dots">
+                            <div class="color-dot" style="background: #fff; border-color: #333;"></div>
+                            <div class="color-dot" style="background: #333;"></div>
+                            <div class="color-dot" style="background: #1976d2;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image"></div>
+                    <div class="product-info">
+                        <h3 class="product-title">Vintage Navy Shirt</h3>
+                        <div class="product-price">
+                            <span class="price">$34.99</span>
+                        </div>
+                        <div class="color-dots">
+                            <div class="color-dot" style="background: #1976d2;"></div>
+                            <div class="color-dot" style="background: #fff; border-color: #333;"></div>
+                            <div class="color-dot" style="background: #e53935;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image"></div>
+                    <div class="product-info">
+                        <h3 class="product-title">Premium Gray Tee</h3>
+                        <div class="product-price">
+                            <span class="price">$27.99</span>
+                            <span class="old-price">$32.99</span>
+                        </div>
+                        <div class="color-dots">
+                            <div class="color-dot" style="background: #666;"></div>
+                            <div class="color-dot" style="background: #fff; border-color: #333;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image"></div>
+                    <div class="product-info">
+                        <h3 class="product-title">Essential Black Tee</h3>
+                        <div class="product-price">
+                            <span class="price">$22.99</span>
+                        </div>
+                        <div class="color-dots">
+                            <div class="color-dot" style="background: #000;"></div>
+                            <div class="color-dot" style="background: #fff; border-color: #333;"></div>
+                            <div class="color-dot" style="background: #e53935;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

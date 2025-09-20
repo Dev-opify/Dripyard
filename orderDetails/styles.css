@@ -1,0 +1,381 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #0a0a0a;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    margin-bottom: 40px;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 40px;
+}
+
+/* Order Header */
+.order-header {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.order-info h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.order-date {
+    color: #888;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.delivered-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #22c55e;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.delivered-status::before {
+    content: "✓";
+    background: #22c55e;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Main Layout */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+}
+
+.order-items {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 30px;
+}
+
+.items-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.items-header::before {
+    content: "📦";
+    font-size: 16px;
+}
+
+/* Item Styles */
+.item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+.item-box {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hoodie-box {
+    background: linear-gradient(45deg, #ff6b35, #f7931e);
+}
+.hoodie-pattern {
+    width: 60px;
+    height: 60px;
+    background: repeating-linear-gradient(45deg, #000 0px, #000 3px, transparent 3px, transparent 6px);
+    opacity: 0.3;
+    border-radius: 4px;
+}
+
+.pants-box {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+.pants-shape {
+    width: 50px;
+    height: 60px;
+    background: #2d3748;
+    border-radius: 4px;
+    position: relative;
+}
+.pants-dot {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    width: 8px;
+    height: 8px;
+    background: #4a5568;
+    border-radius: 50%;
+}
+.pants-line {
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
+    width: 12px;
+    height: 4px;
+    background: #4a5568;
+    border-radius: 2px;
+}
+
+.jacket-box {
+    background: linear-gradient(135deg, #74b9ff, #0984e3);
+    position: relative;
+    overflow: hidden;
+}
+.jacket-pattern {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 60px;
+    height: 60px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23ddd"/><circle cx="35" cy="35" r="25" fill="%23ffb3ba"/><rect x="10" y="60" width="80" height="30" rx="5" fill="%23bae1ff"/></svg>') no-repeat center;
+    background-size: cover;
+    border-radius: 4px;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.item-specs {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.item-qty {
+    color: #888;
+    font-size: 14px;
+}
+
+.item-price {
+    font-size: 16px;
+    font-weight: 600;
+    text-align: right;
+}
+
+/* Sidebar */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.shipping-card {
+    border-color: #dc2626;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.shipping-header::before {
+    content: "📍";
+    color: #dc2626;
+}
+
+.payment-header::before {
+    content: "💳";
+}
+
+.address-info {
+    line-height: 1.8;
+    color: #ccc;
+}
+
+.payment-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.visa-logo {
+    background: #1a365d;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.card-number {
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.card-expiry {
+    color: #888;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* Summary */
+.order-summary {
+    margin-top: 10px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    color: #ccc;
+}
+
+.discount-row {
+    color: #22c55e;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #333;
+}
+
+.total-price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bolt-badge {
+    background: white;
+    color: #000;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.bolt-badge::before {
+    content: "⚡";
+}
+
+/* Buttons */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: #dc2626;
+    color: white;
+}
+.btn-primary:hover {
+    background: #b91c1c;
+}
+
+.btn-secondary {
+    background: #2a2a2a;
+    color: white;
+    border: 1px solid #444;
+}
+.btn-secondary:hover {
+    background: #333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .item {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    .item-price {
+        text-align: center;
+    }
+}

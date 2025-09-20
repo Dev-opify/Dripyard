@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DripYard - Share Your Experience</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <span class="drip">Drip</span><span class="yard">Yard</span>
+        </div>
+        <p class="tagline">Premium Streetwear & Fashion</p>
+        <div class="divider"></div>
+    </div>
+    
+    <div class="form-container">
+        <div class="form-header">
+            <div class="form-header-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            <div class="form-header-text">
+                <h2>Share Your Experience</h2>
+                <p>Help others discover amazing products</p>
+            </div>
+        </div>
+        
+        <div class="form-content">
+            <form id="reviewForm">
+                <div class="form-group">
+                    <label class="form-label">Overall Rating <span class="required">*</span></label>
+                    <div class="star-rating" id="starRating">
+                        <svg class="star" viewBox="0 0 24 24" data-rating="1">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"></polygon>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24" data-rating="2">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"></polygon>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24" data-rating="3">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"></polygon>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24" data-rating="4">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"></polygon>
+                        </svg>
+                        <svg class="star" viewBox="0 0 24 24" data-rating="5">
+                            <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"></polygon>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="reviewTitle">Review Title <span class="required">*</span></label>
+                    <input type="text" id="reviewTitle" class="form-input" placeholder="Summarize your experience..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="reviewText">Your Review <span class="required">*</span></label>
+                    <textarea id="reviewText" class="form-input form-textarea" placeholder="Tell us about your experience with this product..." required></textarea>
+                    <div class="char-count"><span id="charCount">0</span>/1000</div>
+                    <div class="helper-text">Share details about quality, fit, styling, and overall satisfaction</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Add Photos (Optional)</label>
+                    <div class="upload-area" onclick="document.getElementById('photoUpload').click()">
+                        <input type="file" id="photoUpload" class="file-input" multiple accept="image/*">
+                        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7,10 12,15 17,10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        <div class="upload-text">Drag & drop images here, or click to select</div>
+                        <div class="upload-subtext">Up to 4 images (PNG, JPG, GIF)</div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Review</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>© 2025 DripYard. All rights reserved.</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
