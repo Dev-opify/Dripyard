@@ -33,7 +33,7 @@ body {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    border: 3px solid #34495e;
+    border: 3px solid #1A1A1A;
 }
 
 .status-badge {
@@ -49,7 +49,7 @@ body {
     justify-content: center;
     font-size: 12px;
     font-weight: bold;
-    border: 2px solid #2c3e50;
+    border: 2px solid #1A1A1A;
 }
 
 .profile-info h1 {
@@ -73,7 +73,7 @@ body {
     display: flex;
     gap: 0;
     margin-bottom: 30px;
-    background: rgba(52, 73, 94, 0.5);
+    background: #1A1A1A;
     border-radius: 10px;
     padding: 5px;
 }
@@ -110,7 +110,7 @@ body {
 }
 
 .order-history {
-    background: rgba(44, 62, 80, 0.8);
+    background: #1A1A1A;
     border-radius: 15px;
     padding: 25px;
     backdrop-filter: blur(10px);
@@ -123,7 +123,7 @@ body {
 }
 
 .order-item {
-    background: rgba(52, 73, 94, 0.8);
+    background: #1A1A1A;
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 15px;
@@ -178,7 +178,7 @@ body {
 }
 
 .profile-details {
-    background: rgba(44, 62, 80, 0.8);
+    background: #1A1A1A;
     border-radius: 15px;
     padding: 25px;
     backdrop-filter: blur(10px);
