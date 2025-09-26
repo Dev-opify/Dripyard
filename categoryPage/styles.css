@@ -5,7 +5,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+            background: black;
             color: white;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
@@ -42,7 +42,7 @@
 
         .sidebar {
             width: 280px;
-            background: rgba(30, 41, 59, 0.8);
+            background: #1A1A1A;
             padding: 25px;
             border-radius: 15px;
             height: fit-content;
@@ -140,7 +140,7 @@
         }
 
         .product-card {
-            background: rgba(30, 41, 59, 0.9);
+            background: #1A1A1A;
             border-radius: 15px;
             overflow: hidden;
             transition: all 0.3s ease;
