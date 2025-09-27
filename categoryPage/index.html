@@ -1,207 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Street Tees</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <div class="container">
-        <div class="header">
-            <h1>Street Tees</h1>
-            <p>Discover our premium collection of street-ready tees that define urban culture</p>
+      <div class="header">
+        <h1>Street Tees</h1>
+        <p>
+          Discover our premium collection of street-ready tees that define urban
+          culture
+        </p>
+      </div>
+
+      <div class="main-content">
+        <div class="sidebar">
+          <div class="filter-section">
+            <h3 class="filter-title">Filters</h3>
+          </div>
+
+          <div class="filter-section">
+            <h4 class="filter-title">Size</h4>
+            <div class="size-filters">
+              <button class="size-btn">XS</button>
+              <button class="size-btn">S</button>
+              <button class="size-btn">M</button>
+              <button class="size-btn">L</button>
+              <button class="size-btn">XL</button>
+              <button class="size-btn">XXL</button>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4 class="filter-title">Color</h4>
+            <div class="color-options">
+              <label class="color-option"
+                ><input type="checkbox" /> Black</label
+              >
+              <label class="color-option"
+                ><input type="checkbox" /> White</label
+              >
+              <label class="color-option"><input type="checkbox" /> Gray</label>
+              <label class="color-option"><input type="checkbox" /> Navy</label>
+              <label class="color-option"
+                ><input type="checkbox" /> Maroon</label
+              >
+              <label class="color-option"
+                ><input type="checkbox" /> Olive</label
+              >
+              <label class="color-option"
+                ><input type="checkbox" /> Charcoal</label
+              >
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4 class="filter-title">Price Range</h4>
+            <div class="price-options">
+              <label class="price-option"
+                ><input type="radio" name="price" /> Under $30</label
+              >
+              <label class="price-option"
+                ><input type="radio" name="price" /> $30 - $40</label
+              >
+              <label class="price-option"
+                ><input type="radio" name="price" /> $40 - $50</label
+              >
+              <label class="price-option"
+                ><input type="radio" name="price" /> Over $50</label
+              >
+            </div>
+          </div>
         </div>
 
-        <div class="main-content">
-            <div class="sidebar">
-                <div class="filter-section">
-                    <h3 class="filter-title">Filters</h3>
-                </div>
+        <div class="products-section">
+          <div class="products-info">Showing 6 of 8 products</div>
 
-                <div class="filter-section">
-                    <h4 class="filter-title">Size</h4>
-                    <div class="size-filters">
-                        <button class="size-btn">XS</button>
-                        <button class="size-btn">S</button>
-                        <button class="size-btn">M</button>
-                        <button class="size-btn">L</button>
-                        <button class="size-btn">XL</button>
-                        <button class="size-btn">XXL</button>
-                    </div>
+          <div class="products-grid">
+            <!-- Product 1 -->
+            <a href="/productDetails" style="text-decoration: none; color: inherit;">
+                <div class="product-card">
+                <div class="product-image product-1">
+                    <div class="sale-badge">SALE</div>
+                    <div class="view-icon">👁</div>
+                    Urban Style Tee
                 </div>
+                <div class="product-info">
+                    <h3 class="product-name">Urban Drip Tee</h3>
+                    <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-count">(124)</span>
+                    </div>
+                    <div class="price">
+                    $29.99 <span class="original-price">$39.99</span>
+                    </div>
+                    <div class="color-variants">
+                    <div class="color-dot black"></div>
+                    <div class="color-dot white"></div>
+                    <div class="color-dot gray"></div>
+                    </div>
+                    <div class="sizes-available">Sizes: S, M, L, XL</div>
+                </div>
+                </div>
+            </a>    
 
-                <div class="filter-section">
-                    <h4 class="filter-title">Color</h4>
-                    <div class="color-options">
-                        <label class="color-option"><input type="checkbox"> Black</label>
-                        <label class="color-option"><input type="checkbox"> White</label>
-                        <label class="color-option"><input type="checkbox"> Gray</label>
-                        <label class="color-option"><input type="checkbox"> Navy</label>
-                        <label class="color-option"><input type="checkbox"> Maroon</label>
-                        <label class="color-option"><input type="checkbox"> Olive</label>
-                        <label class="color-option"><input type="checkbox"> Charcoal</label>
-                    </div>
+            <!-- Product 2 -->
+            <div class="product-card">
+              <div class="product-image product-2">
+                <div class="view-icon">👁</div>
+                Street Vibes Design
+              </div>
+              <div class="product-info">
+                <h3 class="product-name">Street Vibes Classic</h3>
+                <div class="rating">
+                  <span class="stars">★★★★☆</span>
+                  <span class="rating-count">(89)</span>
                 </div>
-
-                <div class="filter-section">
-                    <h4 class="filter-title">Price Range</h4>
-                    <div class="price-options">
-                        <label class="price-option"><input type="radio" name="price"> Under $30</label>
-                        <label class="price-option"><input type="radio" name="price"> $30 - $40</label>
-                        <label class="price-option"><input type="radio" name="price"> $40 - $50</label>
-                        <label class="price-option"><input type="radio" name="price"> Over $50</label>
-                    </div>
+                <div class="price">$34.99</div>
+                <div class="color-variants">
+                  <div class="color-dot black"></div>
+                  <div class="color-dot navy"></div>
+                  <div class="color-dot maroon"></div>
                 </div>
+                <div class="sizes-available">Sizes: XS, S, M, L, XL, XXL</div>
+              </div>
             </div>
 
-            <div class="products-section">
-                <div class="products-info">Showing 6 of 8 products</div>
-
-                <div class="products-grid">
-                    <!-- Product 1 -->
-                    <div class="product-card">
-                        <div class="product-image product-1">
-                            <div class="sale-badge">SALE</div>
-                            <div class="view-icon">👁</div>
-                            Urban Style Tee
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">Urban Drip Tee</h3>
-                            <div class="rating">
-                                <span class="stars">★★★★☆</span>
-                                <span class="rating-count">(124)</span>
-                            </div>
-                            <div class="price">$29.99 <span class="original-price">$39.99</span></div>
-                            <div class="color-variants">
-                                <div class="color-dot black"></div>
-                                <div class="color-dot white"></div>
-                                <div class="color-dot gray"></div>
-                            </div>
-                            <div class="sizes-available">Sizes: S, M, L, XL</div>
-                        </div>
-                    </div>
-
-                    <!-- Product 2 -->
-                    <div class="product-card">
-                        <div class="product-image product-2">
-                            <div class="view-icon">👁</div>
-                            Street Vibes Design
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">Street Vibes Classic</h3>
-                            <div class="rating">
-                                <span class="stars">★★★★☆</span>
-                                <span class="rating-count">(89)</span>
-                            </div>
-                            <div class="price">$34.99</div>
-                            <div class="color-variants">
-                                <div class="color-dot black"></div>
-                                <div class="color-dot navy"></div>
-                                <div class="color-dot maroon"></div>
-                            </div>
-                            <div class="sizes-available">Sizes: XS, S, M, L, XL, XXL</div>
-                        </div>
-                    </div>
-
-                    <!-- Product 3 -->
-                    <div class="product-card">
-                        <div class="product-image product-3">
-                            <div class="sale-badge">SALE</div>
-                            <div class="view-icon">👁</div>
-                            Minimalist Design
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">Minimalist Drop Shoulder</h3>
-                            <div class="rating">
-                                <span class="stars">★★★★☆</span>
-                                <span class="rating-count">(203)</span>
-                            </div>
-                            <div class="price">$27.99 <span class="original-price">$32.99</span></div>
-                            <div class="color-variants">
-                                <div class="color-dot black"></div>
-                                <div class="color-dot white"></div>
-                                <div class="color-dot olive"></div>
-                            </div>
-                            <div class="sizes-available">Sizes: S, M, L, XL</div>
-                        </div>
-                    </div>
-
-                    <!-- Product 4 -->
-                    <div class="product-card">
-                        <div class="product-image product-4">
-                            <div class="view-icon">👁</div>
-                            Oversized Style
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">Oversized Street Essential</h3>
-                            <div class="rating">
-                                <span class="stars">★★★★☆</span>
-                                <span class="rating-count">(156)</span>
-                            </div>
-                            <div class="price">$42.99</div>
-                            <div class="color-variants">
-                                <div class="color-dot black"></div>
-                                <div class="color-dot charcoal"></div>
-                                <div class="color-dot white"></div>
-                            </div>
-                            <div class="sizes-available">Sizes: M, L, XL, XXL</div>
-                        </div>
-                    </div>
-
-                    <!-- Product 5 -->
-                    <div class="product-card">
-                        <div class="product-image product-5">
-                            <div class="view-icon">👁</div>
-                            Graphic Statement
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">Graphic Statement Tee</h3>
-                            <div class="rating">
-                                <span class="stars">★★★★☆</span>
-                                <span class="rating-count">(92)</span>
-                            </div>
-                            <div class="price">$31.99</div>
-                            <div class="color-variants">
-                                <div class="color-dot black"></div>
-                                <div class="color-dot white"></div>
-                            </div>
-                            <div class="sizes-available">Sizes: S, M, L, XL</div>
-                        </div>
-                    </div>
-
-                    <!-- Product 6 -->
-                    <div class="product-card">
-                        <div class="product-image product-6">
-                            <div class="sale-badge">SALE</div>
-                            <div class="view-icon">👁</div>
-                            Premium Cotton
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">Premium Cotton Blend</h3>
-                            <div class="rating">
-                                <span class="stars">★★★★☆</span>
-                                <span class="rating-count">(167)</span>
-                            </div>
-                            <div class="price">$38.99 <span class="original-price">$44.99</span></div>
-                            <div class="color-variants">
-                                <div class="color-dot black"></div>
-                                <div class="color-dot navy"></div>
-                                <div class="color-dot gray"></div>
-                                <span style="color: #a0a9ba; font-size: 0.9rem;">+1</span>
-                            </div>
-                            <div class="sizes-available">Sizes: XS, S, M, L, XL</div>
-                        </div>
-                    </div>
+            <!-- Product 3 -->
+            <a href="/productDetails" style="text-decoration: none; color: inherit;">
+              <div class="product-card">
+                <div class="product-image product-3">
+                  <div class="sale-badge">SALE</div>
+                  <div class="view-icon">👁</div>
+                  Minimalist Design
                 </div>
-
-                <div class="load-more">
-                    <button class="load-more-btn">Load More Products</button>
+                <div class="product-info">
+                  <h3 class="product-name">Minimalist Drop Shoulder</h3>
+                  <div class="rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-count">(203)</span>
+                  </div>
+                  <div class="price">
+                    $27.99 <span class="original-price">$32.99</span>
+                  </div>
+                  <div class="color-variants">
+                    <div class="color-dot black"></div>
+                    <div class="color-dot white"></div>
+                    <div class="color-dot olive"></div>
+                  </div>
+                  <div class="sizes-available">Sizes: S, M, L, XL</div>
                 </div>
+              </div>
+            </a>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+              <div class="product-image product-4">
+                <div class="view-icon">👁</div>
+                Oversized Style
+              </div>
+              <div class="product-info">
+                <h3 class="product-name">Oversized Street Essential</h3>
+                <div class="rating">
+                  <span class="stars">★★★★☆</span>
+                  <span class="rating-count">(156)</span>
+                </div>
+                <div class="price">$42.99</div>
+                <div class="color-variants">
+                  <div class="color-dot black"></div>
+                  <div class="color-dot charcoal"></div>
+                  <div class="color-dot white"></div>
+                </div>
+                <div class="sizes-available">Sizes: M, L, XL, XXL</div>
+              </div>
             </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+              <div class="product-image product-5">
+                <div class="view-icon">👁</div>
+                Graphic Statement
+              </div>
+              <div class="product-info">
+                <h3 class="product-name">Graphic Statement Tee</h3>
+                <div class="rating">
+                  <span class="stars">★★★★☆</span>
+                  <span class="rating-count">(92)</span>
+                </div>
+                <div class="price">$31.99</div>
+                <div class="color-variants">
+                  <div class="color-dot black"></div>
+                  <div class="color-dot white"></div>
+                </div>
+                <div class="sizes-available">Sizes: S, M, L, XL</div>
+              </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+              <div class="product-image product-6">
+                <div class="sale-badge">SALE</div>
+                <div class="view-icon">👁</div>
+                Premium Cotton
+              </div>
+              <div class="product-info">
+                <h3 class="product-name">Premium Cotton Blend</h3>
+                <div class="rating">
+                  <span class="stars">★★★★☆</span>
+                  <span class="rating-count">(167)</span>
+                </div>
+                <div class="price">
+                  $38.99 <span class="original-price">$44.99</span>
+                </div>
+                <div class="color-variants">
+                  <div class="color-dot black"></div>
+                  <div class="color-dot navy"></div>
+                  <div class="color-dot gray"></div>
+                  <span style="color: #a0a9ba; font-size: 0.9rem">+1</span>
+                </div>
+                <div class="sizes-available">Sizes: XS, S, M, L, XL</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="load-more">
+            <button class="load-more-btn">Load More Products</button>
+          </div>
         </div>
+      </div>
     </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

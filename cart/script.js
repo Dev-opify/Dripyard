@@ -49,9 +49,9 @@ function updateOrderSummary() {
     document.getElementById('grand-total').textContent = `$${total}`;
 }
 
-document.querySelector('.checkout-btn').addEventListener('click', function() {
-    alert('Proceeding to checkout...');
-});
+// document.querySelector('.checkout-btn').addEventListener('click', function() {
+//     alert('Proceeding to checkout...');
+// });
 
 document.querySelector('.apply-btn').addEventListener('click', function() {
     const couponCode = document.querySelector('.coupon-field').value;
