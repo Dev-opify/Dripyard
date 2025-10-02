@@ -27,9 +27,9 @@ document.querySelectorAll('.move-to-cart-btn:not(.unavailable)').forEach(button 
 });
 
 // View cart button
-document.querySelector('.view-cart-btn').addEventListener('click', function() {
-    alert('Navigating to cart...');
-});
+// document.querySelector('.view-cart-btn').addEventListener('click', function() {
+//     alert('Navigating to cart...');
+// });
 
 // Checkout button
 document.querySelector('.checkout-btn').addEventListener('click', function() {
