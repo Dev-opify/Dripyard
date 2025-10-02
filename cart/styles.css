@@ -331,6 +331,32 @@
             font-size: 30px;
         }
 
+        /* Dynamic Elements */
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+        }
+
+        .empty-cart h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .empty-cart p {
+            font-size: 16px;
+        }
+
+        .product-size {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .discount-amount {
+            color: #22c55e;
+            font-weight: 600;
+        }
+
         /* ========================= */
 /*   RESPONSIVENESS FIXES    */
 /* ========================= */

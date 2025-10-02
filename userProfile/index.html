@@ -10,12 +10,12 @@
     <div class="container">
         <div class="profile-header">
             <div class="profile-image">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Alex Johnson">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="Profile Picture">
                 <div class="status-badge">2</div>
             </div>
             <div class="profile-info">
-                <h1>Alex Johnson</h1>
-                <div class="email">alex.johnson@dripyard.com</div>
+                <h1 id="userName" class="profile-name">Loading...</h1>
+                <div class="email profile-email" id="userEmail">Loading...</div>
                 <div class="member-since">Member since January 2023</div>
             </div>
         </div>
@@ -31,40 +31,49 @@
             <div class="order-history">
                 <h2>Order History</h2>
 
-                <div class="order-item">
-                    <div class="order-header">
-                        <div class="order-id">#DY-2024-001</div>
-                        <div class="order-price">$299.99</div>
+                <!-- Dynamic orders container -->
+                <div id="orders-container">
+                    <!-- Fallback orders for demo -->
+                    <div class="order-item">
+                        <div class="order-header">
+                            <div class="order-id">#DY-2024-001</div>
+                            <div class="order-price">$299.99</div>
+                        </div>
+                        <div class="order-date">2024-01-15</div>
+                        <div class="order-footer">
+                            <div class="order-items">3 items</div>
+                            <div class="order-status status-delivered">Delivered</div>
+                        </div>
                     </div>
-                    <div class="order-date">2024-01-15</div>
-                    <div class="order-footer">
-                        <div class="order-items">3 items</div>
-                        <div class="order-status status-delivered">Delivered</div>
+
+                    <div class="order-item">
+                        <div class="order-header">
+                            <div class="order-id">#DY-2024-002</div>
+                            <div class="order-price">$159.50</div>
+                        </div>
+                        <div class="order-date">2024-01-10</div>
+                        <div class="order-footer">
+                            <div class="order-items">1 item</div>
+                            <div class="order-status status-delivered">Delivered</div>
+                        </div>
+                    </div>
+
+                    <div class="order-item">
+                        <div class="order-header">
+                            <div class="order-id">#DY-2024-003</div>
+                            <div class="order-price">$489.99</div>
+                        </div>
+                        <div class="order-date">2024-01-05</div>
+                        <div class="order-footer">
+                            <div class="order-items">2 items</div>
+                            <div class="order-status status-shipped">Shipped</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="order-item">
-                    <div class="order-header">
-                        <div class="order-id">#DY-2024-002</div>
-                        <div class="order-price">$159.50</div>
-                    </div>
-                    <div class="order-date">2024-01-10</div>
-                    <div class="order-footer">
-                        <div class="order-items">1 item</div>
-                        <div class="order-status status-delivered">Delivered</div>
-                    </div>
-                </div>
-
-                <div class="order-item">
-                    <div class="order-header">
-                        <div class="order-id">#DY-2024-003</div>
-                        <div class="order-price">$489.99</div>
-                    </div>
-                    <div class="order-date">2024-01-05</div>
-                    <div class="order-footer">
-                        <div class="order-items">2 items</div>
-                        <div class="order-status status-shipped">Shipped</div>
-                    </div>
+                <!-- No orders message (hidden by default) -->
+                <div id="no-orders-message" style="display: none;">
+                    <p>No orders found.</p>
                 </div>
             </div>
 
@@ -76,22 +85,22 @@
 
                 <div class="profile-field">
                     <div class="profile-field-label">👤 Name</div>
-                    <div class="profile-field-value">Alex Johnson</div>
+                    <div class="profile-field-value profile-name" id="profileName">Loading...</div>
                 </div>
 
                 <div class="profile-field">
                     <div class="profile-field-label">✉️ Email</div>
-                    <div class="profile-field-value">alex.johnson@dripyard.com</div>
+                    <div class="profile-field-value profile-email" id="profileEmail">Loading...</div>
                 </div>
 
                 <div class="profile-field">
                     <div class="profile-field-label">📞 Phone</div>
-                    <div class="profile-field-value">+1 (555) 123-4567</div>
+                    <div class="profile-field-value profile-mobile" id="profileMobile">Not provided</div>
                 </div>
 
                 <div class="profile-field">
                     <div class="profile-field-label">📍 Address</div>
-                    <div class="profile-field-value">123 Fashion Street, NYC 10001</div>
+                    <div class="profile-field-value">Not yet implemented</div>
                 </div>
             </div>
         </div>
