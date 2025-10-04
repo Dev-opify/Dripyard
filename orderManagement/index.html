@@ -38,159 +38,8 @@
             <div>Actions</div>
         </div>
 
-        <!-- Orders rows here -->
-        <div class="order-row">
-            <div>
-                <div class="order-id">ORD-001</div>
-                <div class="order-date">2024-09-10</div>
-            </div>
-            <div class="user-info">
-                <div class="name">Alex Johnson</div>
-                <div class="email">alex@example.com</div>
-            </div>
-            <div class="items-info">
-                <div class="item-name">DripYard Hoodie (2), Premium T-Shirt (1)</div>
-                <div class="item-count">3 items</div>
-            </div>
-            <div class="total">$219.97</div>
-            <div>
-                <span class="status-badge status-paid">Paid</span>
-            </div>
-            <div class="delivery-status">
-                <span class="status-badge status-shipped">
-                    <select class="delivery-dropdown">
-                        <option>Shipped</option>
-                    </select>
-                </span>
-
-            </div>
-            <div>
-                <button class="view-btn">👁 View Order</button>
-            </div>
-        </div>
-
-        <div class="order-row">
-            <div>
-                <div class="order-id">ORD-002</div>
-                <div class="order-date">2024-09-11</div>
-            </div>
-            <div class="user-info">
-                <div class="name">Sarah Chen</div>
-                <div class="email">sarah@example.com</div>
-            </div>
-            <div class="items-info">
-                <div class="item-name">Street Joggers (1)</div>
-                <div class="item-count">1 item</div>
-            </div>
-            <div class="total">$69.99</div>
-            <div>
-                <span class="status-badge status-pending">Pending</span>
-            </div>
-            <div class="delivery-status">
-                <span class="status-badge status-pending">
-                    <select class="delivery-dropdown">
-                        <option>Pending</option>
-                    </select>
-                </span>
-
-            </div>
-            <div>
-                <button class="view-btn">👁 View Order</button>
-            </div>
-        </div>
-
-        <div class="order-row">
-            <div>
-                <div class="order-id">ORD-003</div>
-                <div class="order-date">2024-09-12</div>
-            </div>
-            <div class="user-info">
-                <div class="name">Mike Rodriguez</div>
-                <div class="email">mike@example.com</div>
-            </div>
-            <div class="items-info">
-                <div class="item-name">Urban Cap (3), DripYard Jacket (1)</div>
-                <div class="item-count">2 items</div>
-            </div>
-            <div class="total">$239.96</div>
-            <div>
-                <span class="status-badge status-pending">Pending</span>
-            </div>
-            <div class="delivery-status">
-                <span class="status-badge status-pending">
-                    <select class="delivery-dropdown">
-                        <option>Pending</option>
-                    </select>
-                </span>
-
-            </div>
-            <div>
-                <button class="view-btn">👁 View Order</button>
-            </div>
-        </div>
-
-        <div class="order-row">
-            <div>
-                <div class="order-id">ORD-004</div>
-                <div class="order-date">2024-09-08</div>
-            </div>
-            <div class="user-info">
-                <div class="name">Emma Thompson</div>
-                <div class="email">emma@example.com</div>
-            </div>
-            <div class="items-info">
-                <div class="item-name">Designer Sneakers (1)</div>
-                <div class="item-count">1 item</div>
-            </div>
-            <div class="total">$199.99</div>
-            <div>
-                <span class="status-badge status-paid">Paid</span>
-            </div>
-            <div class="delivery-status">
-                <span class="status-badge status-delivered">
-                    <select class="delivery-dropdown">
-                        <option>Delivered</option>
-                    </select>
-                </span>
-
-            </div>
-            <div>
-                <button class="view-btn">👁 View Order</button>
-            </div>
-        </div>
-
-        <div class="order-row">
-            <div>
-                <div class="order-id">ORD-005</div>
-                <div class="order-date">2024-09-05</div>
-            </div>
-            <div class="user-info">
-                <div class="name">David Park</div>
-                <div class="email">david@example.com</div>
-            </div>
-            <div class="items-info">
-                <div class="item-name">Premium Backpack (1)</div>
-                <div class="item-count">1 item</div>
-            </div>
-            <div class="total">$89.99</div>
-            <div>
-                <span class="status-badge status-refunded">Refunded</span>
-            </div>
-            <div class="delivery-status">
-                <span class="status-badge status-cancelled">
-                    <select class="delivery-dropdown">
-                        <option>Cancelled</option>
-                    </select>
-                </span>
-                <!-- <select class="delivery-dropdown">
-                    <option>Cancelled</option>
-                </select> -->
-            </div>
-            <div>
-                <button class="view-btn">👁 View Order</button>
-            </div>
-        </div>
-        <!-- Copy and paste order rows or dynamically populate via JS -->
+        <!-- Orders rows will be injected by script.js -->
+        <div id="orders-rows"></div>
     </div>
 
     <div class="stats-grid">
@@ -212,6 +61,7 @@
         </div>
     </div>
 
+    <script src="../api/client.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -13,13 +13,23 @@
         
         <form id="ticketForm">
             <div class="form-group">
+                <label class="form-label required">Name</label>
+                <input type="text" id="name" class="form-input" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label required">Email</label>
+                <input type="email" id="email" class="form-input" placeholder="Enter your email address" required>
+            </div>
+
+            <div class="form-group">
                 <label class="form-label required">Subject</label>
-                <input type="text" class="form-input" placeholder="Briefly describe your issue" required>
+                <input type="text" id="subject" class="form-input" placeholder="Briefly describe your issue" required>
             </div>
 
             <div class="form-group">
                 <label class="form-label required">Category</label>
-                <select class="form-select" required>
+                <select id="category" class="form-select" required>
                     <option value="">Select a category</option>
                     <option value="technical">Technical Issue</option>
                     <option value="billing">Billing</option>
@@ -31,12 +41,12 @@
 
             <div class="form-group">
                 <label class="form-label">Order ID <span class="optional-text">(optional)</span></label>
-                <input type="text" class="form-input" placeholder="Enter your order ID if applicable">
+                <input type="text" id="orderId" class="form-input" placeholder="Enter your order ID if applicable">
             </div>
 
             <div class="form-group">
                 <label class="form-label required">Message</label>
-                <textarea class="form-textarea" placeholder="Describe your issue in detail..." required></textarea>
+                <textarea id="message" class="form-textarea" placeholder="Describe your issue in detail..." required></textarea>
             </div>
 
             <div class="form-group">
@@ -56,7 +66,7 @@
         </form>
     </div>
 
-
+    <script src="../api/client.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

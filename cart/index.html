@@ -23,60 +23,7 @@
 
                 <!-- Dynamic cart items will be populated here -->
                 <div id="cart-items-container">
-                    <!-- Fallback items for demo/offline mode -->
-                    <div class="cart-item">
-                        <div class="product-info">
-                            <div class="product-image hoodie-img"></div>
-                            <div class="product-details">
-                                <h3>DripYard Essential Hoodie</h3>
-                                <p class="product-color">Color: Black</p>
-                            </div>
-                        </div>
-                        <div class="price">$120</div>
-                        <div class="quantity-controls">
-                            <button class="quantity-btn" onclick="updateQuantity(0, -1)">-</button>
-                            <input type="number" class="quantity-input" value="2" id="qty-0" readonly>
-                            <button class="quantity-btn" onclick="updateQuantity(0, 1)">+</button>
-                        </div>
-                        <div class="item-total" id="total-0">$240</div>
-                        <button class="remove-btn" onclick="removeItem(0)">×</button>
-                    </div>
-
-                    <div class="cart-item">
-                        <div class="product-info">
-                            <div class="product-image sneakers-img"></div>
-                            <div class="product-details">
-                                <h3>DripYard Elite Sneakers</h3>
-                                <p class="product-color">Color: White/Red</p>
-                            </div>
-                        </div>
-                        <div class="price">$180</div>
-                        <div class="quantity-controls">
-                            <button class="quantity-btn" onclick="updateQuantity(1, -1)">-</button>
-                            <input type="number" class="quantity-input" value="1" id="qty-1" readonly>
-                            <button class="quantity-btn" onclick="updateQuantity(1, 1)">+</button>
-                        </div>
-                        <div class="item-total" id="total-1">$180</div>
-                        <button class="remove-btn" onclick="removeItem(1)">×</button>
-                    </div>
-
-                    <div class="cart-item">
-                        <div class="product-info">
-                            <div class="product-image cap-img"></div>
-                            <div class="product-details">
-                                <h3>DripYard Signature Cap</h3>
-                                <p class="product-color">Color: Black</p>
-                            </div>
-                        </div>
-                        <div class="price">$45</div>
-                        <div class="quantity-controls">
-                            <button class="quantity-btn" onclick="updateQuantity(2, -1)">-</button>
-                            <input type="number" class="quantity-input" value="1" id="qty-2" readonly>
-                            <button class="quantity-btn" onclick="updateQuantity(2, 1)">+</button>
-                        </div>
-                        <div class="item-total" id="total-2">$45</div>
-                        <button class="remove-btn" onclick="removeItem(2)">×</button>
-                    </div>
+                    <!-- Dynamic items injected by script.js -->
                 </div>
 
                 <!-- Empty cart message (hidden by default) -->
@@ -116,7 +63,7 @@
                     <span>Total</span>
                     <span class="amount" id="grand-total">$480</span>
                 </div>
-                <a href="/orderCheckout">
+                <a href="../orderCheckout/index.html" style="text-decoration: none;">
                     <button class="checkout-btn">Proceed to Checkout</button>
                 </a>
                 <div class="shipping-info">Free shipping on orders over $150</div>
@@ -124,8 +71,8 @@
             </div>
         </div>
     </div>
-
-
+    
+    <script src="../api/client.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

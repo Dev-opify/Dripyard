@@ -1,81 +1,65 @@
-const couponsData = [
-    { code: 'SAVE20', discount: '20%', expiry: '12/30/2024', status: 'active' },
-    { code: 'WELCOME10', discount: '10%', expiry: '9/19/2024', status: 'active' },
-    { code: 'FLASH50', discount: '50%', expiry: '9/14/2024', status: 'inactive' }
-];
+function money(v){ return `₹${Number(v||0).toLocaleString('en-IN')}`; }
 
-const dealsData = [
-    { code: 'SUMMER25', discount: '25%', expiry: '8/31/2024', status: 'active' },
-    { code: 'BACK2SCHOOL', discount: '15%', expiry: '9/15/2024', status: 'active' }
-];
+async function loadCoupons(){
+  try{
+    const coupons = await apiClient.admin.coupons.all();
+    renderCoupons(coupons||[]);
+    document.querySelector('.stat-value').textContent = (coupons||[]).length;
+  }catch(e){ console.error('Failed to load coupons', e); renderCoupons([]); }
+}
 
-function switchTab(tabName, element) {
-    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-    element.classList.add('active');
-
-    const tbody = document.getElementById('coupons-tbody');
-    const data = tabName === 'coupons' ? couponsData : dealsData;
-
-    tbody.innerHTML = data.map(item => `
-        <tr>
-            <td class="coupon-code">${item.code}</td>
-            <td class="discount-percent">${item.discount}</td>
-            <td class="expiry-date">${item.expiry}</td>
-            <td><span class="status-badge status-${item.status}">${item.status}</span></td>
-            <td>
-                <div class="actions-cell">
-                    <button class="action-btn" title="Edit">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="action-btn" title="Delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </td>
-        </tr>
-    `).join('');
+function renderCoupons(list){
+  const tbody = document.getElementById('coupons-tbody');
+  tbody.innerHTML = list.map(c=>{
+    const discount = (c.discountPercentage||0)+'%';
+    const expiry = c.validityEndDate || '';
+    const status = c.active? 'active':'inactive';
+    return `
+      <tr data-id="${c.id}">
+        <td class="coupon-code">${c.code}</td>
+        <td class="discount-percent">${discount}</td>
+        <td class="expiry-date">${expiry}</td>
+        <td><span class="status-badge status-${status}">${status}</span></td>
+        <td>
+          <div class="actions-cell">
+            <button class="action-btn" title="Delete" data-action="delete"><i class="fas fa-trash"></i></button>
+          </div>
+        </td>
+      </tr>`;
+  }).join('');
 }
 
 document.querySelector('.search-input').addEventListener('input', function(e) {
-    const searchTerm = e.target.value.toLowerCase();
-    const rows = document.querySelectorAll('#coupons-tbody tr');
-    
-    rows.forEach(row => {
-        const code = row.querySelector('.coupon-code').textContent.toLowerCase();
-        row.style.display = code.includes(searchTerm) ? '' : 'none';
-    });
+  const searchTerm = e.target.value.toLowerCase();
+  const rows = document.querySelectorAll('#coupons-tbody tr');
+  rows.forEach(row => {
+    const code = row.querySelector('.coupon-code').textContent.toLowerCase();
+    row.style.display = code.includes(searchTerm) ? '' : 'none';
+  });
 });
 
-document.querySelector('.add-coupon-btn').addEventListener('click', function() {
-    alert('Add New Coupon dialog would open here');
+document.querySelector('.add-coupon-btn').addEventListener('click', async function() {
+  const code = prompt('Enter coupon code');
+  const pct = prompt('Enter discount percentage');
+  if(!code || !pct) return;
+  try{
+    await apiClient.admin.coupons.create({ code, discountPercentage: Number(pct), active:true });
+    loadCoupons();
+  }catch(e){ alert('Failed to create coupon: ' + e.message); }
 });
 
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('fa-edit') || e.target.closest('.action-btn[title="Edit"]')) {
-        const row = e.target.closest('tr');
-        const code = row.querySelector('.coupon-code').textContent;
-        alert(`Editing coupon: ${code}`);
+document.addEventListener('click', async function(e) {
+  const btn = e.target.closest('[data-action="delete"]');
+  if(btn){
+    const row = btn.closest('tr');
+    const idAttr = row.getAttribute('data-id');
+    if(idAttr && confirm('Delete this coupon?')){
+      try{ await apiClient.admin.coupons.delete(idAttr); row.remove(); }
+      catch(err){ alert('Failed to delete: '+err.message); }
     }
-    if (e.target.classList.contains('fa-trash') || e.target.closest('.action-btn[title="Delete"]')) {
-        const row = e.target.closest('tr');
-        const code = row.querySelector('.coupon-code').textContent;
-        if (confirm(`Are you sure you want to delete coupon ${code}?`)) {
-            row.remove();
-        }
-    }
+  }
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    switchTab('coupons', document.querySelector('.tab.active'));
-    const statValues = document.querySelectorAll('.stat-value');
-    statValues.forEach(stat => {
-        const finalValue = parseInt(stat.textContent);
-        stat.textContent = '0';
-        let currentValue = 0;
-        const timer = setInterval(() => {
-            currentValue++;
-            stat.textContent = currentValue;
-            if (currentValue >= finalValue) clearInterval(timer);
-        }, 200);
-    });
+  loadCoupons();
 });

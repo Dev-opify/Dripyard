@@ -1,122 +1,230 @@
-// Backend API configuration
-const API_BASE_URL = 'https://skillful-nature-production.up.railway.app';
-
-// Token management
-function saveToken(token) {
-    localStorage.setItem('authToken', token);
-}
-
-function getToken() {
-    return localStorage.getItem('authToken');
-}
-
-function removeToken() {
-    localStorage.removeItem('authToken');
-}
-
-// API call helper
-async function apiCall(endpoint, method = 'GET', data = null, requiresAuth = false) {
-    const headers = {
-        'Content-Type': 'application/json'
-    };
-    
-    if (requiresAuth) {
-        const token = getToken();
-        if (token) {
-            headers['Authorization'] = `Bearer ${token}`;
-        }
+// Check if user is already logged in
+function checkAuthStatus() {
+    const token = apiClient.getToken();
+    if (token) {
+        // User is logged in, redirect to home
+        window.location.href = '../LandingPage/index.html';
     }
+}
+
+// Initialize auth check on page load
+checkAuthStatus();
+
+// Helper function to show loading state
+function showLoading(button, loadingText) {
+    button.disabled = true;
+    button.dataset.originalText = button.textContent;
+    button.textContent = loadingText;
+}
+
+// Helper function to hide loading state
+function hideLoading(button) {
+    button.disabled = false;
+    button.textContent = button.dataset.originalText;
+}
+
+// Show error message
+function showError(message) {
+    const errorDiv = document.getElementById('error-message') || createErrorDiv();
+    errorDiv.textContent = message;
+    errorDiv.style.display = 'block';
+    setTimeout(() => {
+        errorDiv.style.display = 'none';
+    }, 5000);
+}
+
+// Create error div if it doesn't exist
+function createErrorDiv() {
+    const errorDiv = document.createElement('div');
+    errorDiv.id = 'error-message';
+    errorDiv.style.cssText = `
+        color: #ff4757;
+        background: #ffebee;
+        border: 1px solid #ff4757;
+        border-radius: 4px;
+        padding: 10px;
+        margin: 10px 0;
+        display: none;
+        text-align: center;
+    `;
+    const form = document.getElementById('loginForm');
+    form.insertBefore(errorDiv, form.firstChild);
+    return errorDiv;
+}
+
+// Show success message
+function showSuccess(message) {
+    const successDiv = document.createElement('div');
+    successDiv.style.cssText = `
+        color: #2ed573;
+        background: #f1f9ff;
+        border: 1px solid #2ed573;
+        border-radius: 4px;
+        padding: 10px;
+        margin: 10px 0;
+        text-align: center;
+    `;
+    successDiv.textContent = message;
+    const form = document.getElementById('loginForm');
+    form.insertBefore(successDiv, form.firstChild);
+    setTimeout(() => {
+        successDiv.remove();
+    }, 3000);
+}
+
+// Global state for auth method
+let isOtpMode = false;
+let otpSent = false;
+
+// Toggle between password and OTP authentication
+function toggleAuthMethod() {
+    const passwordSection = document.getElementById('passwordSection');
+    const otpSection = document.getElementById('otpSection');
+    const authToggle = document.getElementById('authToggle');
+    const sendOtpBtn = document.getElementById('sendOtpBtn');
     
-    const config = {
-        method,
-        headers
-    };
+    isOtpMode = !isOtpMode;
     
-    if (data) {
-        config.body = JSON.stringify(data);
-    }
-    
-    try {
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
-        const result = await response.json();
+    if (isOtpMode) {
+        passwordSection.style.display = 'none';
+        otpSection.style.display = 'block';
+        authToggle.textContent = 'Use Password instead';
+        sendOtpBtn.style.display = 'inline-block';
         
-        if (!response.ok) {
-            throw new Error(result.message || 'API request failed');
+        // Auto-enable development OTP for admin users
+        const email = document.getElementById('email').value;
+        if (email === 'admin@dripyard.com') {
+            otpSent = true; // Allow development OTP
+            showSuccess('Development mode: You can use OTP "123456"');
         }
-        
-        return result;
-    } catch (error) {
-        console.error('API Error:', error);
-        throw error;
+    } else {
+        passwordSection.style.display = 'block';
+        otpSection.style.display = 'none';
+        authToggle.textContent = 'Use OTP instead';
+        sendOtpBtn.style.display = 'inline-block';
+        otpSent = false;
     }
 }
 
-// Login with backend integration
+// Send OTP button handler
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('sendOtpBtn').addEventListener('click', async function() {
+        const email = document.getElementById('email').value;
+        if (!email) {
+            showError('Please enter your email address first.');
+            return;
+        }
+        
+        showLoading(this, 'Sending OTP...');
+        
+        try {
+            const success = await sendOTP(email);
+            if (success) {
+                otpSent = true;
+                if (!isOtpMode) {
+                    toggleAuthMethod();
+                }
+                document.getElementById('otp').focus();
+            }
+        } finally {
+            hideLoading(this);
+        }
+    });
+});
+
+// Login form handler
 document.getElementById('loginForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const otp = document.getElementById('otp').value;
     
-    if (!email || !password) {
-        alert('Please fill in all fields');
+    if (!email) {
+        showError('Please enter your email address');
         return;
     }
     
-    const loginBtn = document.querySelector('.login-btn');
-    const originalText = loginBtn.textContent;
-    loginBtn.textContent = 'Logging in...';
-    loginBtn.disabled = true;
+    if (isOtpMode) {
+        if (!otp) {
+            showError('Please enter the OTP');
+            return;
+        }
+        // Allow development OTP (123456) without requiring email send
+        if (!otpSent && otp !== '123456') {
+            showError('Please send OTP first or use development OTP "123456"');
+            return;
+        }
+    } else {
+        if (!password) {
+            showError('Please enter your password');
+            return;
+        }
+    }
+    
+    const loginBtn = document.getElementById('loginBtn');
+    showLoading(loginBtn, 'Logging in...');
     
     try {
-        // Call backend login API
-        const response = await apiCall('/auth/signin', 'POST', {
-            email: email,
-            password: password
-        });
+        const payload = { email };
+        if (isOtpMode) {
+            payload.otp = otp;
+        } else {
+            payload.password = password;
+        }
+        
+        const response = await apiClient.auth.signin(payload);
+        
+        console.log('Login response:', response); // Debug log
         
         if (response.status && response.jwt) {
             // Save JWT token
-            saveToken(response.jwt);
+            apiClient.setToken(response.jwt);
             
-            alert(`Login successful! Welcome back.`);
+            showSuccess('Login successful! Redirecting...');
             
-            // Redirect to home page or dashboard
-            // You can uncomment and modify this line based on your app structure
-            // window.location.href = '/dashboard';
+            console.log('User role:', response.role); // Debug log
+            
+            // Redirect based on user role
+            setTimeout(() => {
+                if (response.role === 'ROLE_ADMIN' || response.role === 1) {
+                    console.log('Redirecting to admin dashboard'); // Debug log
+                    window.location.href = '../Admin_Dashboard/index.html';
+                } else {
+                    console.log('Redirecting to landing page'); // Debug log
+                    window.location.href = '../LandingPage/index.html';
+                }
+            }, 1500);
             
         } else {
-            alert('Login failed: ' + (response.message || 'Invalid credentials'));
+            showError(response.message || 'Invalid credentials');
         }
         
     } catch (error) {
         console.error('Login error:', error);
-        alert('Login failed: ' + error.message);
+        showError('Login failed: ' + error.message);
     } finally {
-        loginBtn.textContent = originalText;
-        loginBtn.disabled = false;
+        hideLoading(loginBtn);
     }
 });
 
 // Send OTP for login/signup
 async function sendOTP(email) {
     try {
-        const response = await apiCall('/auth/sent/login-signup-otp', 'POST', {
-            email: email,
-            otp: '', // Will be generated by backend
-            user: null
+        const response = await apiClient.auth.sendOtp({
+            email: email
         });
         
         if (response.status) {
-            alert('OTP sent to your email. Please check your inbox.');
+            showSuccess('OTP sent to your email. Please check your inbox.');
             return true;
         } else {
-            alert('Failed to send OTP: ' + (response.message || 'Unknown error'));
+            showError(response.message || 'Failed to send OTP');
             return false;
         }
     } catch (error) {
         console.error('Send OTP error:', error);
-        alert('Failed to send OTP: ' + error.message);
+        showError('Failed to send OTP: ' + error.message);
         return false;
     }
 }
@@ -124,24 +232,26 @@ async function sendOTP(email) {
 // Signup with OTP
 async function handleSignUpWithOTP(fullName, email, otp) {
     try {
-        const response = await apiCall('/auth/signup', 'POST', {
+        const response = await apiClient.auth.signup({
             fullName: fullName,
             email: email,
             otp: otp
         });
         
         if (response.status && response.jwt) {
-            saveToken(response.jwt);
-            alert(`Signup successful! Welcome ${fullName}.`);
-            // Redirect or update UI as needed
+            apiClient.setToken(response.jwt);
+            showSuccess(`Signup successful! Welcome ${fullName}.`);
+            setTimeout(() => {
+                window.location.href = '../LandingPage/index.html';
+            }, 1500);
             return true;
         } else {
-            alert('Signup failed: ' + (response.message || 'Invalid OTP or details'));
+            showError(response.message || 'Signup failed: Invalid OTP or details');
             return false;
         }
     } catch (error) {
         console.error('Signup error:', error);
-        alert('Signup failed: ' + error.message);
+        showError('Signup failed: ' + error.message);
         return false;
     }
 }
@@ -149,23 +259,30 @@ async function handleSignUpWithOTP(fullName, email, otp) {
 // Login with OTP
 async function handleLoginWithOTP(email, otp) {
     try {
-        const response = await apiCall('/auth/signin', 'POST', {
+        const response = await apiClient.auth.signin({
             email: email,
             password: '', // Not used for OTP login
             otp: otp
         });
         
         if (response.status && response.jwt) {
-            saveToken(response.jwt);
-            alert('Login successful! Welcome back.');
+            apiClient.setToken(response.jwt);
+            showSuccess('Login successful! Redirecting...');
+            setTimeout(() => {
+                if (response.role === 'ROLE_ADMIN') {
+                    window.location.href = '../Admin_Dashboard/index.html';
+                } else {
+                    window.location.href = '../LandingPage/index.html';
+                }
+            }, 1500);
             return true;
         } else {
-            alert('Login failed: ' + (response.message || 'Invalid OTP'));
+            showError(response.message || 'Login failed: Invalid OTP');
             return false;
         }
     } catch (error) {
         console.error('OTP Login error:', error);
-        alert('Login failed: ' + error.message);
+        showError('Login failed: ' + error.message);
         return false;
     }
 }
@@ -173,7 +290,7 @@ async function handleLoginWithOTP(email, otp) {
 function handleForgotPassword() {
     const email = document.getElementById('email').value;
     if (!email) {
-        alert('Please enter your email address first.');
+        showError('Please enter your email address first.');
         return;
     }
     
@@ -182,27 +299,15 @@ function handleForgotPassword() {
 }
 
 function handleSignUp() {
-    // You can customize this to show a signup form or redirect
-    const fullName = prompt('Enter your full name:');
-    const email = prompt('Enter your email address:');
-    
-    if (fullName && email) {
-        sendOTP(email).then(success => {
-            if (success) {
-                const otp = prompt('Enter the OTP sent to your email:');
-                if (otp) {
-                    handleSignUpWithOTP(fullName, email, otp);
-                }
-            }
-        });
-    }
+    // Redirect to signup page
+    window.location.href = '../signup/index.html';
 }
 
 // Add OTP login option
 function handleOTPLogin() {
     const email = document.getElementById('email').value;
     if (!email) {
-        alert('Please enter your email address first.');
+        showError('Please enter your email address first.');
         return;
     }
     

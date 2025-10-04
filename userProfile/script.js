@@ -1,51 +1,6 @@
-// Backend API configuration
-const API_BASE_URL = 'https://skillful-nature-production.up.railway.app';
-
-// Token management
-function getToken() {
-    return localStorage.getItem('authToken');
-}
-
-function removeToken() {
-    localStorage.removeItem('authToken');
-}
-
-// API call helper
-async function apiCall(endpoint, method = 'GET', data = null, requiresAuth = false) {
-    const headers = {
-        'Content-Type': 'application/json'
-    };
-    
-    if (requiresAuth) {
-        const token = getToken();
-        if (token) {
-            headers['Authorization'] = `Bearer ${token}`;
-        }
-    }
-    
-    const config = {
-        method,
-        headers
-    };
-    
-    if (data) {
-        config.body = JSON.stringify(data);
-    }
-    
-    try {
-        const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
-        const result = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(result.message || 'API request failed');
-        }
-        
-        return result;
-    } catch (error) {
-        console.error('API Error:', error);
-        throw error;
-    }
-}
+// Use centralized API client
+function getToken(){ return apiClient.getToken(); }
+function removeToken(){ apiClient.setToken(null); }
 
 // Global user profile data
 let userProfile = null;
@@ -63,14 +18,10 @@ async function loadUserProfile() {
     }
     
     try {
-        userProfile = await apiCall('/api/users/profile', 'GET', null, true);
-        console.log('User profile loaded:', userProfile);
+        userProfile = await apiClient.user.getProfile();
         displayUserProfile();
-        
-        // Also load order history and transactions
         await loadUserOrders();
         await loadUserTransactions();
-        
     } catch (error) {
         console.error('Failed to load user profile:', error);
         alert('Failed to load profile. Please try again.');
@@ -80,7 +31,7 @@ async function loadUserProfile() {
 // Load user orders
 async function loadUserOrders() {
     try {
-        userOrders = await apiCall('/api/orders/user', 'GET', null, true);
+        userOrders = await apiClient.orders ? await apiClient.orders.listUser?.() : await (async ()=> fetch(`${apiClient.BASE_URL}/api/orders/user`,{headers:{Authorization:`Bearer ${getToken()}`}}).then(r=>r.json()))();
         console.log('User orders loaded:', userOrders);
     } catch (error) {
         console.error('Failed to load user orders:', error);
@@ -90,7 +41,7 @@ async function loadUserOrders() {
 // Load user transactions
 async function loadUserTransactions() {
     try {
-        userTransactions = await apiCall('/api/users/transactions', 'GET', null, true);
+        userTransactions = await (async ()=> fetch(`${apiClient.BASE_URL}/api/users/transactions`,{headers:{Authorization:`Bearer ${getToken()}`}}).then(r=>r.json()))();
         console.log('User transactions loaded:', userTransactions);
     } catch (error) {
         console.error('Failed to load user transactions:', error);
@@ -192,8 +143,7 @@ function displayTransactions() {
 function logout() {
     removeToken();
     alert('You have been logged out.');
-    // Redirect to login page
-    // window.location.href = '/login';
+    window.location.href = '../login/index.html';
 }
 
 // Tab switching functionality
@@ -345,14 +295,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Initialize user profile on page load
 window.addEventListener('load', function() {
-    loadUserProfile();
-    addLogoutButton();
-    
-    // Check if user is logged in
-    const token = getToken();
-    if (!token) {
-        console.warn('Not logged in - redirecting to login would happen here');
-    } else {
-        console.log('Logged in - loading user profile from backend');
+    if (!getToken()) {
+        window.location.href = '../login/index.html';
+        return;
     }
+    loadUserProfile().then(()=>{
+      displayOrders();
+    });
+    addLogoutButton();
 });

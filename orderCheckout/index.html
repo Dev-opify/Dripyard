@@ -100,62 +100,38 @@
                     <h2 class="section-title">Order Summary</h2>
                 </div>
 
-                <div class="order-item">
-                    <div class="item-image" style="background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
-                    <div class="item-details">
-                        <div class="item-name">DripYard Premiu...</div>
-                        <div class="item-quantity">Qty: 1</div>
-                    </div>
-                    <div class="item-price">₹2,499</div>
-                </div>
-
-                <div class="order-item">
-                    <div class="item-image" style="background-image: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
-                    <div class="item-details">
-                        <div class="item-name">Street Style Jogg...</div>
-                        <div class="item-quantity">Qty: 2</div>
-                    </div>
-                    <div class="item-price">₹3,798</div>
-                </div>
-
-                <div class="order-item">
-                    <div class="item-image" style="background-image: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
-                    <div class="item-details">
-                        <div class="item-name">Urban Cap Collection</div>
-                        <div class="item-quantity">Qty: 1</div>
-                    </div>
-                    <div class="item-price">₹799</div>
+                <div id="order-items">
+                    <!-- Items loaded dynamically -->
                 </div>
 
                 <div class="order-totals">
                     <div class="total-row">
                         <span>Subtotal</span>
-                        <span>₹7,096</span>
+                        <span id="subtotal">₹0</span>
                     </div>
                     <div class="total-row">
                         <span>🚚 Shipping</span>
-                        <span>₹99</span>
+                        <span id="shipping">₹0</span>
                     </div>
-                    <div class="total-row discount">
+                    <div class="total-row discount" id="discount-row" style="display:none;">
                         <span>% Discount</span>
-                        <span>-₹200</span>
+                        <span id="discount">-₹0</span>
                     </div>
                 </div>
 
                 <div class="final-total">
                     <span>Total</span>
-                    <span class="price">₹6,995</span>
+                    <span class="price" id="grand-total">₹0</span>
                 </div>
-                <a href="/orderConfirmation/" style="text-decoration: none;">
-                    <button class="place-order-btn">
-                        <span class="label-icon">🏷️</span>
-                        Place Order - ₹6,995
-                    </button>
-                </a>
+                <button class="place-order-btn" id="place-order-btn">
+                    <span class="label-icon">🏷️</span>
+                    Place Order
+                </button>
             </div>
         </div>
     </div>
 
+    <script src="../api/client.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

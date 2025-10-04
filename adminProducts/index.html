@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Products - DripYard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <h1>Admin Products</h1>
+      <div class="actions">
+        <button id="open-create" class="btn primary">+ New Product</button>
+      </div>
+    </header>
+
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <div class="search">
+            <input id="search" type="text" placeholder="Search products..." />
+          </div>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Color</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="products-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Create Modal -->
+  <div id="modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Create Product</h2>
+        <button id="close-create" class="btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="create-form">
+          <div class="row">
+            <label>Title</label>
+            <input name="title" required />
+          </div>
+          <div class="row">
+            <label>Description</label>
+            <textarea name="description"></textarea>
+          </div>
+          <div class="row grid">
+            <div>
+              <label>MRP (₹)</label>
+              <input name="mrpPrice" type="number" required />
+            </div>
+            <div>
+              <label>Selling Price (₹)</label>
+              <input name="sellingPrice" type="number" required />
+            </div>
+          </div>
+          <div class="row grid">
+            <div>
+              <label>Brand</label>
+              <input name="brand" />
+            </div>
+            <div>
+              <label>Color</label>
+              <input name="color" />
+            </div>
+          </div>
+          <div class="row grid">
+            <div>
+              <label>Category</label>
+              <input name="category" placeholder="e.g. men" />
+            </div>
+            <div>
+              <label>Category 2</label>
+              <input name="category2" placeholder="e.g. tshirt" />
+            </div>
+          </div>
+          <div class="row">
+            <label>Category 3</label>
+            <input name="category3" placeholder="e.g. oversized" />
+          </div>
+          <div class="row">
+            <label>Sizes (comma separated)</label>
+            <input name="sizes" placeholder="S,M,L,XL" />
+          </div>
+          <div class="row">
+            <label>Image keys (comma separated)</label>
+            <input name="images" placeholder="key1,key2" />
+          </div>
+          <div class="footer">
+            <button type="submit" class="btn primary">Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="../api/client.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

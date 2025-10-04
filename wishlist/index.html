@@ -23,68 +23,8 @@
                     <span class="updated-time">Updated just now</span>
                 </div>
 
-                <div class="wishlist-item">
-                    <div class="product-image hoodie-img">👤</div>
-                    <div class="product-info">
-                        <h3 class="product-name">DripYard Essential Hoodie</h3>
-                        <p class="product-color color-midnight">Color: Midnight Black</p>
-                        <div style="display: flex; align-items: center;">
-                            <span class="product-price">$129.99</span>
-                            <span class="stock-badge in-stock">In Stock</span>
-                        </div>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="move-to-cart-btn">🛒 Move to Cart</button>
-                        <button class="remove-btn" onclick="removeItem(this)">×</button>
-                    </div>
-                </div>
-
-                <div class="wishlist-item">
-                    <div class="product-image pants-img">👖</div>
-                    <div class="product-info">
-                        <h3 class="product-name">Urban Cargo Pants</h3>
-                        <p class="product-color color-olive">Color: Olive Green</p>
-                        <div style="display: flex; align-items: center;">
-                            <span class="product-price">$89.99</span>
-                            <span class="stock-badge in-stock">In Stock</span>
-                        </div>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="move-to-cart-btn">🛒 Move to Cart</button>
-                        <button class="remove-btn" onclick="removeItem(this)">×</button>
-                    </div>
-                </div>
-
-                <div class="wishlist-item">
-                    <div class="product-image sneakers-img">👟</div>
-                    <div class="product-info">
-                        <h3 class="product-name">Street Runner Sneakers</h3>
-                        <p class="product-color color-triple">Color: Triple White</p>
-                        <div style="display: flex; align-items: center;">
-                            <span class="product-price">$199.99</span>
-                            <span class="stock-badge out-of-stock">Out of Stock</span>
-                        </div>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="move-to-cart-btn unavailable">🚫 Unavailable</button>
-                        <button class="remove-btn" onclick="removeItem(this)">×</button>
-                    </div>
-                </div>
-
-                <div class="wishlist-item">
-                    <div class="product-image tee-img">👕</div>
-                    <div class="product-info">
-                        <h3 class="product-name">Oversized Graphic Tee</h3>
-                        <p class="product-color color-acid">Color: Acid Wash</p>
-                        <div style="display: flex; align-items: center;">
-                            <span class="product-price">$59.99</span>
-                            <span class="stock-badge in-stock">In Stock</span>
-                        </div>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="move-to-cart-btn">🛒 Move to Cart</button>
-                        <button class="remove-btn" onclick="removeItem(this)">×</button>
-                    </div>
+                <div id="wishlist-items">
+                    <!-- Items will be loaded dynamically -->
                 </div>
             </div>
 
@@ -106,6 +46,7 @@
         </div>
     </div>
 
+    <script src="../api/client.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,22 +1,52 @@
-// Add click handlers for interactive elements
-document.querySelectorAll('.view-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const row = this.closest('.table-row');
-        const orderId = row.querySelector('.order-id').textContent;
-        alert(`Viewing details for order ${orderId}`);
-    });
-});
+// Integrate with backend API to load user's orders
+function getToken(){ return apiClient.getToken(); }
 
-document.querySelector('.filter-btn').addEventListener('click', function() {
-    alert('Filter options coming soon!');
-});
+function money(v){ return `₹${Number(v||0).toLocaleString('en-IN')}`; }
 
-// Add hover effects
-document.querySelectorAll('.table-row').forEach(row => {
-    row.addEventListener('mouseenter', function() {
-        this.style.backgroundColor = '#222';
+async function loadOrders(){
+  if(!getToken()){ window.location.href = '../login/index.html'; return; }
+  try{
+    const orders = await fetch(`${apiClient.BASE_URL}/api/orders/user`,{ headers:{ Authorization:`Bearer ${getToken()}` } }).then(r=>r.json());
+    renderOrders(orders || []);
+  }catch(e){
+    console.error('Failed to load orders', e);
+    renderOrders([]);
+  }
+}
+
+function renderOrders(orders){
+  const table = document.querySelector('.orders-table');
+  // Remove existing data rows (keep header)
+  const rows = table.querySelectorAll('.table-row');
+  rows.forEach(r=>r.remove());
+
+  if(!orders.length){
+    const empty = document.createElement('div');
+    empty.className='table-row';
+    empty.innerHTML = `<div colspan="6">No orders found</div>`;
+    table.appendChild(empty);
+    return;
+  }
+
+  orders.forEach(order=>{
+    const row = document.createElement('div');
+    row.className='table-row';
+    const date = order.orderDate ? new Date(order.orderDate).toLocaleDateString() : '';
+    const items = order.totalItem || (order.orderItems? order.orderItems.length:0);
+    const status = (order.orderStatus||'PENDING').toLowerCase();
+    row.innerHTML = `
+      <div class="order-id">${order.orderId || ('DY-'+order.id)}</div>
+      <div class="date">📅 ${date}</div>
+      <div class="status ${status}">${order.orderStatus||'PENDING'}</div>
+      <div class="total">${money(order.totalSellingPrice)}</div>
+      <div class="items">${items} item${items!==1?'s':''}</div>
+      <button class="view-btn">👁 View Details</button>
+    `;
+    row.querySelector('.view-btn').addEventListener('click',()=>{
+      window.location.href = `../orderDetails/index.html?id=${order.id}`;
     });
-    row.addEventListener('mouseleave', function() {
-        this.style.backgroundColor = 'transparent';
-    });
-});
+    table.appendChild(row);
+  })
+}
+
+window.addEventListener('load', loadOrders);

@@ -18,22 +18,34 @@
                 <input type="email" id="email" name="email" placeholder="Enter your email" required>
             </div>
             
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <!-- OTP Section - Initially hidden -->
+            <div class="form-group" id="otpSection" style="display: none;">
+                <label for="otp">OTP</label>
+                <input type="text" id="otp" name="otp" placeholder="Enter 6-digit OTP" maxlength="6">
+                <small style="color: #ffa726; font-size: 12px;">
+                    ⚠️ Development Mode: Use OTP "123456" for admin login (MailerSend domain not verified)
+                </small>
             </div>
             
-            <div class="forgot-password">
-                <a href="#" onclick="handleForgotPassword()">Forgot Password?</a>
-                <a href="#" onclick="handleOTPLogin()" style="margin-left: 15px;">Login with OTP</a>
+            <!-- Password Section - For fallback -->
+            <div class="form-group" id="passwordSection">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password">
             </div>
-            <button type="submit" class="login-btn">Login</button>
-            <div class="signup-link">
-                Don't have an account? <a href="/signup">Sign up</a>
+            
+            <div class="auth-options">
+                <button type="button" id="sendOtpBtn" class="secondary-btn">Send OTP</button>
+                <a href="#" onclick="toggleAuthMethod()" id="authToggle">Use OTP instead</a>
             </div>
+            
+            <button type="submit" class="login-btn" id="loginBtn">Login</button>
+<div class="signup-link">
+    Don't have an account? <a href="../signup/index.html">Sign up</a>
+</div>
         </form>
     </div>
 
+    <script src="../api/client.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

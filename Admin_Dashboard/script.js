@@ -1,50 +1,46 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Navigation hover effects
+document.addEventListener('DOMContentLoaded', async function() {
+    // Navigation active state
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => {
         item.addEventListener('click', function(e) {
-            e.preventDefault();
+            if (this.getAttribute('href')==='#') e.preventDefault();
             navItems.forEach(nav => nav.classList.remove('active'));
             this.classList.add('active');
         });
     });
 
+    // Quick jump to products page: open category page for now
+const navProducts = document.getElementById('nav-products');
+    if (navProducts) navProducts.addEventListener('click', (e)=> { e.preventDefault(); window.location.href = '../adminProducts/index.html'; });
+
     // Notification click
     const notificationBtn = document.querySelector('.notification-btn');
     notificationBtn.addEventListener('click', function() {
-        alert('You have 3 new notifications');
+        alert('You have new notifications');
     });
 
-    // User profile dropdown simulation
-    const userProfile = document.querySelector('.user-profile');
-    userProfile.addEventListener('click', function() {
-        alert('Profile menu would open here');
-    });
-
-    // Animate stats on load
-    const statValues = document.querySelectorAll('.stat-value');
-    statValues.forEach(stat => {
-        const finalValue = stat.textContent;
-        stat.textContent = '0';
-        
-        const isPrice = finalValue.includes('$');
-        const numericValue = parseInt(finalValue.replace(/[$,]/g, ''));
-        
-        let currentValue = 0;
-        const increment = Math.ceil(numericValue / 50);
-        
-        const timer = setInterval(() => {
-            currentValue += increment;
-            if (currentValue >= numericValue) {
-                currentValue = numericValue;
-                clearInterval(timer);
-            }
-            
-            if (isPrice) {
-                stat.textContent = '$' + currentValue.toLocaleString();
-            } else {
-                stat.textContent = currentValue.toLocaleString();
-            }
-        }, 30);
-    });
+    // Fetch admin stats
+    await loadAdminStats();
 });
+
+function setStat(selector, value, money=false){
+  const el = document.querySelector(selector);
+  if(!el) return;
+  if(money){ el.textContent = '₹' + Number(value||0).toLocaleString('en-IN'); }
+  else { el.textContent = Number(value||0).toLocaleString('en-IN'); }
+}
+
+async function loadAdminStats(){
+  try{
+    const [products, orders, transactions] = await Promise.all([
+      apiClient.admin.products.list().catch(()=>[]),
+      apiClient.admin.orders.list().catch(()=>[]),
+      apiClient.admin.transactions.list().catch(()=>[]),
+    ]);
+    setStat('.stats-grid .stat-card:nth-child(1) .stat-value', 0+ (/* Total Users unknown */ (new Set(transactions.map(t=>t.customer?.id)).size)) );
+    setStat('.stats-grid .stat-card:nth-child(2) .stat-value', products.length);
+    setStat('.stats-grid .stat-card:nth-child(3) .stat-value', orders.length);
+    const revenue = orders.reduce((sum,o)=> sum + (o.totalSellingPrice||0), 0);
+    setStat('.stats-grid .stat-card:nth-child(4) .stat-value', revenue, true);
+  }catch(e){ console.error('Failed loading admin stats', e); }
+}

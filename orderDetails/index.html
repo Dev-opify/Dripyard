@@ -14,61 +14,21 @@
 
         <div class="order-header">
             <div class="order-info">
-                <h1>Order #DY-2024-001847</h1>
-                <div class="order-date">
-                    📅 Placed on January 14, 2024
-                </div>
+                <h1 id="order-title">Order</h1>
+                <div class="order-date" id="order-date">📅 Placed on</div>
             </div>
-            <div class="delivered-status">
-                Delivered
+            <div class="delivered-status" id="order-status">
+                Status
             </div>
         </div>
 
         <div class="main-content">
             <!-- Order Items -->
             <div class="order-items">
-                <div class="items-header">
-                    Order Items (3)
+                <div class="items-header" id="items-header">
+                    Order Items
                 </div>
-
-                <div class="item">
-                    <div class="item-box hoodie-box">
-                        <div class="hoodie-pattern"></div>
-                    </div>
-                    <div class="item-details">
-                        <div class="item-name">Premium Streetwear Hoodie</div>
-                        <div class="item-specs">Size: L • Color: Black</div>
-                        <div class="item-qty">Qty: 2</div>
-                    </div>
-                    <div class="item-price">$89.99 each</div>
-                </div>
-
-                <div class="item">
-                    <div class="item-box pants-box">
-                        <div class="pants-shape">
-                            <div class="pants-dot"></div>
-                            <div class="pants-line"></div>
-                        </div>
-                    </div>
-                    <div class="item-details">
-                        <div class="item-name">Urban Cargo Pants</div>
-                        <div class="item-specs">Size: 32 • Color: Olive</div>
-                        <div class="item-qty">Qty: 1</div>
-                    </div>
-                    <div class="item-price">$124.99 each</div>
-                </div>
-
-                <div class="item">
-                    <div class="item-box jacket-box">
-                        <div class="jacket-pattern"></div>
-                    </div>
-                    <div class="item-details">
-                        <div class="item-name">Classic Denim Jacket</div>
-                        <div class="item-specs">Size: M • Color: Indigo</div>
-                        <div class="item-qty">Qty: 1</div>
-                    </div>
-                    <div class="item-price">$159.99 each</div>
-                </div>
+                <div id="order-items"></div>
             </div>
 
             <!-- Sidebar -->
@@ -77,11 +37,8 @@
                     <div class="card-header shipping-header">
                         Shipping Address
                     </div>
-                    <div class="address-info">
-                        Alex Johnson<br>
-                        1234 Fashion Avenue<br>
-                        New York, NY 10001<br>
-                        United States
+                    <div class="address-info" id="shipping-address">
+                        Loading...
                     </div>
                 </div>
 
@@ -103,24 +60,20 @@
                     <div class="order-summary">
                         <div class="summary-row">
                             <span>Subtotal</span>
-                            <span>$464.97</span>
+                            <span id="subtotal">₹0</span>
                         </div>
                         <div class="summary-row">
                             <span>Shipping</span>
-                            <span>$15.99</span>
+                            <span id="shipping">₹0</span>
                         </div>
-                        <div class="summary-row discount-row">
+                        <div class="summary-row discount-row" id="discount-row" style="display:none;">
                             <span>Discount</span>
-                            <span>-$50.00</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Tax</span>
-                            <span>$37.20</span>
+                            <span id="discount">-₹0</span>
                         </div>
                         <div class="total-row">
                             <span>Total</span>
                             <div class="total-price">
-                                <span>$468.16</span>
+                                <span id="grand-total">₹0</span>
                             </div>
                         </div>
                     </div>
@@ -134,6 +87,7 @@
         </div>
     </div>
 
+    <script src="../api/client.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

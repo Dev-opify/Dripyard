@@ -98,18 +98,31 @@ function handleFiles(files) {
 }
 
 // Form submission
-document.getElementById('reviewForm').addEventListener('submit', (e) => {
+function toast(msg, err=false){
+  const d=document.createElement('div');
+  d.style.cssText=`position:fixed;top:20px;right:20px;background:${err?'#ef4444':'#10b981'};color:#fff;padding:10px 14px;border-radius:6px;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,.2)`;
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),3000);
+}
+
+document.getElementById('reviewForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    
-    if (selectedRating === 0) {
-        alert('Please select a rating.');
-        return;
+    if (selectedRating === 0) { toast('Please select a rating', true); return; }
+    const params = new URLSearchParams(location.search);
+    const productId = params.get('id');
+    if(!productId){ toast('Missing product id', true); return; }
+    if(!apiClient.getToken()){ window.location.href = '../login/index.html'; return; }
+
+    try{
+      const payload = {
+        reviewText: document.getElementById('reviewText').value.trim(),
+        reviewRating: Number(selectedRating),
+        productImages: []
+      };
+      await apiClient.products.reviews.create(productId, payload);
+      toast('Thank you for your review!');
+      setTimeout(()=>{ window.location.href = `../productDetails/index.html?id=${productId}`; }, 1200);
+    }catch(err){
+      console.error('Failed to submit review', err);
+      toast('Failed to submit review: '+ err.message, true);
     }
-    
-    const formData = new FormData();
-    formData.append('rating', selectedRating);
-    formData.append('title', document.getElementById('reviewTitle').value);
-    formData.append('review', document.getElementById('reviewText').value);
-    
-    alert('Thank you for your review!');
 });

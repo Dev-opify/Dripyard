@@ -466,21 +466,17 @@ footer nav ul li, .footer-grid ul li {
   margin-bottom: 0.4rem;
 }
 .footer-logo {
-  overflow: hidden;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   width: 100%;
   color: black;
-  font-size: 16vw;
-  font-weight: 700;
+  font-size: 50px; font-weight: bold;
   text-align: center;
   white-space: nowrap;
-  letter-spacing: -2px;
-  margin: 0;
+  letter-spacing: 8vw;
+  margin: 1.9rem 0;
 }
 /* Media query */
 @media(max-width: 600px){
   .footer-logo{
-    font-size: clamp(2rem, 16vw, 4rem);
     letter-spacing: 4.5vw;
   }
 }
@@ -700,90 +696,4 @@ footer nav ul li, .footer-grid ul li {
 
 .navbar .cart-icon {
   margin-left: 1rem;
-}
-
-
-/* ===========================
-   Extra Responsive Tweaks
-   =========================== */
-
-/* Hero Section - smooth scaling */
-.main-title {
-  font-size: clamp(2rem, 6vw, 3.8rem);
-}
-.main-title .drip-title {
-  font-size: clamp(1.8rem, 5vw, 3rem);
-}
-
-/* Fresh Drops - headings and text */
-.fresh-drops h2 {
-  font-size: clamp(1.5rem, 5vw, 2.3rem);
-}
-.fresh-drops p {
-  font-size: clamp(0.9rem, 2vw, 1.1rem);
-}
-
-/* About section */
-.about-content h2 {
-  font-size: clamp(1.3rem, 5vw, 2.35rem);
-}
-.about-content p {
-  font-size: clamp(0.85rem, 2vw, 1rem);
-}
-.about-stats h3 {
-  font-size: clamp(1rem, 3.5vw, 1.43rem);
-}
-
-/* Explore Section */
-.explore-drips h2 {
-  font-size: clamp(1.3rem, 5vw, 2.2rem);
-}
-
-/* Collection grid fix for tablets and small devices */
-@media (max-width: 1024px) {
-  .collection-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-areas:
-      "fire exclusive"
-      "limited electric"
-      "premium rocket";
-  }
-}
-
-@media (max-width: 600px) {
-  .collection-grid {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "fire"
-      "exclusive"
-      "limited"
-      "electric"
-      "premium"
-      "rocket";
-  }
-}
-
-/* Footer Logo */
-.footer-logo {
-  font-size: clamp(2rem, 16vw, 8rem);
-  letter-spacing: clamp(-1px, 1vw, -2px);
-  line-height: 1;
-  overflow-wrap: break-word;
-}
-
-/* Footer grid tweaks */
-@media (max-width: 900px) {
-  .footer-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media (max-width: 600px) {
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-    gap: 0.5rem;
-  }
 }

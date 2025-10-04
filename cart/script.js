@@ -1,81 +1,40 @@
-// Backend API configuration
-const API_BASE_URL = 'https://skillful-nature-production.up.railway.app';
-
-// Token management
-function getToken() {
-    return localStorage.getItem('authToken');
-}
-
-// API call helper with query parameters support
-async function apiCall(endpoint, method = 'GET', data = null, requiresAuth = false, queryParams = null) {
-    const headers = {
-        'Content-Type': 'application/json'
-    };
-    
-    if (requiresAuth) {
-        const token = getToken();
-        if (token) {
-            headers['Authorization'] = `Bearer ${token}`;
-        }
-    }
-    
-    const config = {
-        method,
-        headers
-    };
-    
-    if (data) {
-        config.body = JSON.stringify(data);
-    }
-    
-    try {
-        let url = `${API_BASE_URL}${endpoint}`;
-        if (queryParams) {
-            const params = new URLSearchParams(queryParams);
-            url += `?${params.toString()}`;
-        }
-        
-        const response = await fetch(url, config);
-        const result = await response.json();
-        
-        if (!response.ok) {
-            throw new Error(result.message || 'API request failed');
-        }
-        
-        return result;
-    } catch (error) {
-        console.error('API Error:', error);
-        throw error;
-    }
-}
+// Use centralized API client
+function getToken() { return apiClient.getToken(); }
 
 // Global cart state
 let cart = null;
 let cartItems = [];
 
+// Build image URL for product image keys
+function imageUrl(keyOrUrl){
+  if (!keyOrUrl) return 'https://via.placeholder.com/80x80?text=No+Image';
+  return keyOrUrl.startsWith('http') ? keyOrUrl : `${apiClient.BASE_URL}/api/images/${keyOrUrl}`;
+}
+
+// Format currency (₹)
+function money(v){
+  const n = Number(v||0);
+  return `₹${n.toLocaleString('en-IN')}`;
+}
+
 // Load cart from backend on page load
 async function loadCart() {
     const token = getToken();
     if (!token) {
-        console.warn('No auth token found. Please log in.');
-        // Fallback to local products for demo
-        cartItems = [
-            { id: 1, product: { title: "DripYard Essential Hoodie", sellingPrice: 120 }, quantity: 2 },
-            { id: 2, product: { title: "DripYard Elite Sneakers", sellingPrice: 180 }, quantity: 1 },
-            { id: 3, product: { title: "DripYard Signature Cap", sellingPrice: 45 }, quantity: 1 }
-        ];
-        updateOrderSummary();
+        // Not logged in: show empty message
+        cart = null;
+        cartItems = [];
+        updateCartDisplay();
         return;
     }
     
     try {
-        cart = await apiCall('/api/cart', 'GET', null, true);
+        cart = await apiClient.cart.get();
         cartItems = cart.cartItems || [];
-        console.log('Cart loaded:', cart);
         updateCartDisplay();
     } catch (error) {
         console.error('Failed to load cart:', error);
-        alert('Failed to load cart. Please try again.');
+        showError('Failed to load cart. Please try again.');
     }
 }
 
@@ -92,6 +51,10 @@ function updateCartDisplay() {
     if (cartItems.length === 0) {
         container.style.display = 'none';
         emptyMessage.style.display = 'block';
+        // Also reset totals
+        document.getElementById('subtotal').textContent = money(0);
+        document.getElementById('shipping').textContent = money(0);
+        document.getElementById('grand-total').textContent = money(0);
         return;
     }
     
@@ -100,27 +63,28 @@ function updateCartDisplay() {
     
     // Render cart items dynamically
     container.innerHTML = cartItems.map((item, index) => {
-        const product = item.product;
-        const price = product.sellingPrice || item.sellingPrice;
+        const product = item.product || {};
+        const price = product.sellingPrice ?? item.sellingPrice ?? 0;
         const total = price * item.quantity;
+        const imgKey = (product.images && product.images[0]) ? product.images[0] : null;
         
         return `
             <div class="cart-item">
                 <div class="product-info">
-                    <div class="product-image" style="background-image: url('${product.images?.[0] || ''}');"></div>
+                    <div class="product-image" style="background-image: url('${imageUrl(imgKey)}');"></div>
                     <div class="product-details">
-                        <h3>${product.title || 'Unknown Product'}</h3>
+                        <h3>${product.title || 'Product'}</h3>
                         <p class="product-color">Color: ${product.color || 'N/A'}</p>
                         ${item.size ? `<p class="product-size">Size: ${item.size}</p>` : ''}
                     </div>
                 </div>
-                <div class="price">$${price}</div>
+                <div class="price">${money(price)}</div>
                 <div class="quantity-controls">
                     <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
                     <input type="number" class="quantity-input" value="${item.quantity}" id="qty-${index}" readonly>
                     <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
                 </div>
-                <div class="item-total" id="total-${index}">$${total}</div>
+                <div class="item-total" id="total-${index}">${money(total)}</div>
                 <button class="remove-btn" onclick="removeItem(${index})">×</button>
             </div>
         `;
@@ -129,12 +93,7 @@ function updateCartDisplay() {
     updateOrderSummary();
 }
 
-// Fallback products for demo (when not logged in)
-const products = [
-    { name: "DripYard Essential Hoodie", price: 120, quantity: 2 },
-    { name: "DripYard Elite Sneakers", price: 180, quantity: 1 },
-    { name: "DripYard Signature Cap", price: 45, quantity: 1 }
-];
+// Fallback data removed to avoid drift
 
 async function updateQuantity(index, change) {
     const qtyInput = document.getElementById(`qty-${index}`);
@@ -148,7 +107,7 @@ async function updateQuantity(index, change) {
         // Update via backend API
         try {
             const cartItem = cartItems[index];
-            const updatedItem = await apiCall(`/api/cart/item/${cartItem.id}`, 'PUT', {
+            const updatedItem = await apiClient.cart.updateItem(cartItem.id, {
                 id: cartItem.id,
                 product: cartItem.product,
                 size: cartItem.size,
@@ -156,29 +115,20 @@ async function updateQuantity(index, change) {
                 mrpPrice: cartItem.mrpPrice,
                 sellingPrice: cartItem.sellingPrice,
                 userId: cartItem.userId
-            }, true);
+            });
             
             cartItems[index] = updatedItem;
             qtyInput.value = newQty;
-            const itemTotal = cartItem.product.sellingPrice * newQty;
-            totalElement.textContent = `$${itemTotal}`;
+            const itemTotal = (cartItem.product?.sellingPrice ?? cartItem.sellingPrice ?? 0) * newQty;
+            totalElement.textContent = money(itemTotal);
             
             // Reload full cart to get updated totals
             await loadCart();
             
         } catch (error) {
             console.error('Failed to update quantity:', error);
-            alert('Failed to update item quantity. Please try again.');
+            showError('Failed to update item quantity. Please try again.');
         }
-    } else {
-        // Fallback to local update
-        qtyInput.value = newQty;
-        products[index].quantity = newQty;
-        
-        const itemTotal = products[index].price * newQty;
-        totalElement.textContent = `$${itemTotal}`;
-        
-        updateOrderSummary();
     }
 }
 
@@ -188,28 +138,18 @@ async function removeItem(index) {
         // Remove via backend API
         try {
             const cartItem = cartItems[index];
-            await apiCall(`/api/cart/item/${cartItem.id}`, 'DELETE', null, true);
+            await apiClient.cart.deleteItem(cartItem.id);
             
             // Remove from local state
             cartItems.splice(index, 1);
-            
-            // Remove from DOM
-            const cartItemElement = document.querySelectorAll('.cart-item')[index];
-            cartItemElement.remove();
             
             // Reload cart to get updated totals
             await loadCart();
             
         } catch (error) {
             console.error('Failed to remove item:', error);
-            alert('Failed to remove item. Please try again.');
+            showError('Failed to remove item. Please try again.');
         }
-    } else {
-        // Fallback to local removal
-        const cartItemElement = document.querySelectorAll('.cart-item')[index];
-        cartItemElement.remove();
-        products.splice(index, 1);
-        updateOrderSummary();
     }
     
     setTimeout(() => {
@@ -230,28 +170,18 @@ function updateOrderSummary() {
     if (token && cart) {
         // Use backend cart data
         const subtotal = cart.totalSellingPrice || 0;
-        const discount = cart.discount || 0;
         const couponDiscount = cart.couponPrice || 0;
-        const shipping = subtotal > 150 ? 0 : 15;
-        const total = subtotal - couponDiscount + shipping;
+        const shipping = subtotal >= 800 ? 0 : 99; // example rule
+        const total = subtotal - (couponDiscount || 0) + shipping;
         
-        document.getElementById('subtotal').textContent = `$${subtotal}`;
-        document.getElementById('shipping').textContent = shipping === 0 ? 'Free' : `$${shipping}`;
-        document.getElementById('grand-total').textContent = `$${total}`;
-        
-        // Show coupon discount if applied
-        if (couponDiscount > 0) {
-            console.log(`Coupon discount applied: $${couponDiscount}`);
-        }
+        document.getElementById('subtotal').textContent = money(subtotal);
+        document.getElementById('shipping').textContent = shipping === 0 ? 'Free' : money(shipping);
+        document.getElementById('grand-total').textContent = money(total);
     } else {
-        // Fallback to local calculation
-        const subtotal = products.reduce((sum, product) => sum + (product.price * product.quantity), 0);
-        const shipping = subtotal > 150 ? 0 : 15;
-        const total = subtotal + shipping;
-        
-        document.getElementById('subtotal').textContent = `$${subtotal}`;
-        document.getElementById('shipping').textContent = shipping === 0 ? 'Free' : `$${shipping}`;
-        document.getElementById('grand-total').textContent = `$${total}`;
+        // Guest cart is empty in integrated mode
+        document.getElementById('subtotal').textContent = money(0);
+        document.getElementById('shipping').textContent = money(0);
+        document.getElementById('grand-total').textContent = money(0);
     }
 }
 
@@ -262,36 +192,26 @@ function updateOrderSummary() {
 document.querySelector('.apply-btn').addEventListener('click', async function() {
     const couponCode = document.querySelector('.coupon-field').value;
     if (!couponCode.trim()) {
-        alert('Please enter a coupon code.');
+        showError('Please enter a coupon code.');
         return;
     }
     
     const token = getToken();
     if (!token) {
-        alert('Please log in to apply coupons.');
+        showError('Please log in to apply coupons.');
         return;
     }
     
     try {
-        // Calculate current order value
-        const orderValue = cart ? cart.totalSellingPrice : products.reduce((sum, product) => sum + (product.price * product.quantity), 0);
-        
-        // Apply coupon via backend API
-        const updatedCart = await apiCall('/api/coupons/apply', 'POST', null, true, {
-            apply: 'true',
-            code: couponCode,
-            orderValue: orderValue
-        });
-        
+        const orderValue = cart ? cart.totalSellingPrice : 0;
+        const updatedCart = await apiClient.admin.coupons.apply({ apply:'true', code: couponCode, orderValue });
         cart = updatedCart;
         updateOrderSummary();
-        
-        alert(`Coupon "${couponCode}" applied successfully! Discount: $${updatedCart.couponPrice || 0}`);
+        showSuccess(`Coupon "${couponCode}" applied! Discount: ${money(updatedCart.couponPrice || 0)}`);
         document.querySelector('.coupon-field').value = '';
-        
     } catch (error) {
         console.error('Failed to apply coupon:', error);
-        alert('Failed to apply coupon: ' + error.message);
+        showError('Failed to apply coupon: ' + error.message);
     }
 });
 
@@ -305,15 +225,19 @@ document.querySelectorAll('.cart-item').forEach(item => {
     });
 });
 
+// Toast helpers
+function showSuccess(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#10b981;color:#fff;padding:10px 14px;border-radius:6px;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,.2)';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),3000);
+}
+function showError(msg){
+  const d=document.createElement('div');
+  d.style.cssText='position:fixed;top:20px;right:20px;background:#ef4444;color:#fff;padding:10px 14px;border-radius:6px;z-index:9999;box-shadow:0 2px 8px rgba(0,0,0,.2)';
+  d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),4000);
+}
+
 // Initialize cart on page load
 window.addEventListener('load', function() {
-    loadCart();
-    
-    // Check if user is logged in and show appropriate message
-    const token = getToken();
-    if (!token) {
-        console.log('Not logged in - using demo data');
-    } else {
-        console.log('Logged in - loading cart from backend');
-    }
+  loadCart();
 });
