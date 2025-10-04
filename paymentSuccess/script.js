@@ -23,9 +23,20 @@ function toggleFailure() {
 }
 
 function goToOrders() {
-  alert('Redirecting to My Orders page...');
+  window.location.href = '../myOrders/index.html';
 }
 
 function continueShopping() {
-  alert('Continuing shopping...');
+  window.location.href = '../categoryPage/index.html';
 }
+
+// Get order details from URL params if available
+window.addEventListener('load', function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const orderId = urlParams.get('orderId') || urlParams.get('order_id');
+  
+  if (orderId) {
+    const message = document.querySelector('.success-message');
+    message.textContent = `Order #${orderId} has been placed successfully.`;
+  }
+});

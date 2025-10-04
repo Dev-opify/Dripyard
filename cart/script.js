@@ -237,6 +237,135 @@ function showError(msg){
   d.textContent=msg;document.body.appendChild(d);setTimeout(()=>d.remove(),4000);
 }
 
+// ========================= //
+//     CHECKOUT FUNCTIONALITY     //
+// ========================= //
+
+// Checkout modal elements
+const checkoutBtn = document.getElementById('checkout-btn');
+const checkoutModal = document.getElementById('checkout-modal');
+const closeModal = document.getElementById('close-modal');
+const cancelCheckout = document.getElementById('cancel-checkout');
+const checkoutForm = document.getElementById('checkout-form');
+const placeOrderBtn = document.getElementById('place-order-btn');
+
+// Open checkout modal
+checkoutBtn.addEventListener('click', function() {
+  const token = getToken();
+  if (!token) {
+    showError('Please log in to proceed with checkout.');
+    window.location.href = '../login/index.html';
+    return;
+  }
+  
+  if (!cart || !cartItems || cartItems.length === 0) {
+    showError('Your cart is empty. Add some items to checkout.');
+    return;
+  }
+  
+  checkoutModal.style.display = 'flex';
+  document.body.style.overflow = 'hidden'; // Prevent background scrolling
+});
+
+// Close checkout modal
+function closeCheckoutModal() {
+  checkoutModal.style.display = 'none';
+  document.body.style.overflow = 'auto';
+  // Reset form
+  checkoutForm.reset();
+  placeOrderBtn.classList.remove('loading');
+  placeOrderBtn.disabled = false;
+}
+
+closeModal.addEventListener('click', closeCheckoutModal);
+cancelCheckout.addEventListener('click', closeCheckoutModal);
+
+// Close modal when clicking outside
+checkoutModal.addEventListener('click', function(e) {
+  if (e.target === checkoutModal) {
+    closeCheckoutModal();
+  }
+});
+
+// Handle form submission
+checkoutForm.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const token = getToken();
+  if (!token) {
+    showError('Session expired. Please log in again.');
+    window.location.href = '../login/index.html';
+    return;
+  }
+  
+  // Collect form data
+  const formData = new FormData(checkoutForm);
+  const address = {
+    name: formData.get('name').trim(),
+    mobile: formData.get('mobile').trim(),
+    address: formData.get('address').trim(),
+    locality: formData.get('locality').trim(),
+    city: formData.get('city').trim(),
+    state: formData.get('state').trim(),
+    pinCode: formData.get('pinCode').trim()
+  };
+  
+  // Basic validation
+  if (!address.name || !address.mobile || !address.address || !address.city || !address.state || !address.pinCode) {
+    showError('Please fill in all required fields.');
+    return;
+  }
+  
+  // Validate PIN code (6 digits)
+  if (!/^[0-9]{6}$/.test(address.pinCode)) {
+    showError('Please enter a valid 6-digit PIN code.');
+    return;
+  }
+  
+  // Validate mobile number (10 digits)
+  if (!/^[0-9]{10}$/.test(address.mobile.replace(/[^0-9]/g, ''))) {
+    showError('Please enter a valid 10-digit mobile number.');
+    return;
+  }
+  
+  try {
+    // Show loading state
+    placeOrderBtn.classList.add('loading');
+    placeOrderBtn.disabled = true;
+    
+    // Call backend to create order and get Razorpay payment link
+    // Backend will:
+    // 1. Create pending order in MySQL with cart items
+    // 2. Create Razorpay payment link
+    // 3. Return payment link URL for redirect
+    console.log('Creating order with address:', address);
+    
+    const response = await apiClient.orders.create(address);
+    console.log('Order creation response:', response);
+    
+    if (response.payment_link_url) {
+      // Success: Redirect to Razorpay payment page
+      showSuccess('Order created! Redirecting to payment...');
+      
+      // Small delay to show success message
+      setTimeout(() => {
+        window.location.href = response.payment_link_url;
+      }, 1500);
+      
+    } else {
+      throw new Error('No payment link received from server');
+    }
+    
+  } catch (error) {
+    console.error('Order creation failed:', error);
+    showError('Failed to create order: ' + (error.message || 'Please try again.'));
+    
+    // Reset loading state
+    placeOrderBtn.classList.remove('loading');
+    placeOrderBtn.disabled = false;
+  }
+});
+
 // Initialize cart on page load
 window.addEventListener('load', function() {
   loadCart();
