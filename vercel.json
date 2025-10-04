@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+
+    { "source": "/login", "destination": "/login/index.html" },
+    { "source": "/signup", "destination": "/signup/index.html" },
+
+    { "source": "/profile", "destination": "/userProfile/index.html" },
+    { "source": "/account-setting", "destination": "/accountSetting/index.html" },
+    { "source": "/my-orders", "destination": "/myOrders/index.html" },
+    { "source": "/my-tickets", "destination": "/myTickets/index.html" },
+    { "source": "/wishlist", "destination": "/wishlist/index.html" },
+
+    { "source": "/cart", "destination": "/cart/index.html" },
+    { "source": "/checkout", "destination": "/orderCheckout/index.html" },
+    { "source": "/order-confirmation", "destination": "/orderConfirmation/index.html" },
+    { "source": "/order-details", "destination": "/orderDetails/index.html" },
+
+    { "source": "/product-details", "destination": "/productDetails/index.html" },
+    { "source": "/category", "destination": "/categoryPage/index.html" },
+
+    { "source": "/customer-review", "destination": "/customerReview/index.html" },
+    { "source": "/customer-review-submission", "destination": "/customerReviewSubmission/index.html" },
+    { "source": "/help-submission", "destination": "/helpSubmission/index.html" },
+
+    { "source": "/admin-dashboard", "destination": "/Admin_Dashboard/index.html" },
+    { "source": "/admin-products", "destination": "/adminProducts/index.html" },
+    { "source": "/admin-review-check", "destination": "/adminReviewCheck/index.html" },
+    { "source": "/order-management", "destination": "/orderManagement/index.html" },
+    { "source": "/coupon-management", "destination": "/couponManagement/index.html" },
+    { "source": "/users", "destination": "/users/index.html" },
+
+    { "source": "/payment-success", "destination": "/paymentSuccess/index.html" },
+    { "source": "/payment-failure", "destination": "/paymentFailure/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)\\.(css|js|png|jpg|jpeg|gif|svg|ico)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ]
+}

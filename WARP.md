@@ -1,229 +1,83 @@
-# WARP.md
+# Dripyard — Warp AI Repo Index
 
-This file provides guidance to WARP (warp.dev) when working with code in this repository.
+This repository is a static front-end for an e‑commerce experience called "Drip Yard." It is built with vanilla HTML/CSS/JavaScript and talks to a backend API via a small client wrapper in `api/client.js`. There is no build system; everything is served as static files.
 
-## Project Overview
+## Tech stack
+- HTML, CSS, JavaScript (no framework, no bundler)
+- Static assets under `assets/`
+- Backend API documented by `api/openapi.json`
 
-DripYard is a full-stack e-commerce application for a streetwear brand. The project consists of:
-- **Frontend**: Vanilla JavaScript, HTML, and CSS multi-page application
-- **Backend**: Spring Boot REST API with MySQL database
-- **Deployment**: Backend deployed on Railway at https://skillful-nature-production.up.railway.app
+## Project layout (high level)
+- `index.html`, `main.js`, `styles.css` — landing page and global styles/scripts
+- `api/`
+  - `client.js` — minimal API client used by pages
+  - `openapi.json` — backend OpenAPI spec for available endpoints
+- `assets/` — images and videos (cart.png, dripyard.mp4, etc.)
+- Page modules (each has `index.html`, `script.js`, `styles.css`):
+  - `Admin_Dashboard/`, `adminProducts/`, `adminReviewCheck/`
+  - `accountSetting/`, `userProfile/`, `users/`
+  - `login/`, `signup/`
+  - `cart/`, `wishlist/`, `productDetails/`, `categoryPage/`
+  - `orderCheckout/`, `orderConfirmation/`, `orderDetails/`, `myOrders/`
+  - `orderManagement/`, `paymentSuccess/`, `paymentFailure/`
+  - `customerReview/`, `customerReviewSubmission/`
+  - `helpSubmission/`, `myTickets/`
+- `SHIPROCKET_INTEGRATION_GUIDE.md` — notes about shipping integration
 
-## Development Commands
+## API client overview (api/client.js)
+- BASE URL selection:
+  - If `location.hostname === 'dripyardwebsite.vercel.app'` → `https://skillful-nature-production.up.railway.app`
+  - Otherwise → `http://localhost:8080`
+- Auth:
+  - Stores JWT in `localStorage` under key `auth_token`
+  - Sends `Authorization: Bearer <token>` header when `auth: true`
+- Exposes namespaces:
+  - `auth` — signin, signup, send OTP
+  - `products` — list, get, product reviews (list/create)
+  - `cart` — get, add, update item, delete item
+  - `wishlist` — get, add/remove product
+  - `user` — get/update profile
+  - `orders` — create, getById, cancel
+  - `helpdesk` — submit ticket
+  - `admin` — products, orders, transactions, coupons
 
-### Frontend
-The frontend is a static vanilla JavaScript application:
+See `api/openapi.json` for the full endpoint list and schema references.
 
-```bash
-# Serve the frontend locally
-python -m http.server 8000
-# or
-npx serve .
-# or use VS Code Live Server extension
-```
+## Running locally
+Because the app uses relative paths and fetch, use a static file server (don’t open HTML directly from the file system).
 
-### Backend
-The backend is a Spring Boot Maven project in the `backend/` directory:
+Options:
+- Node.js: `npx http-server . -p 5173 -c-1` or `npx serve -s .`
+- Python 3: `python -m http.server 5173`
 
-```bash
-# Navigate to backend directory
-cd backend
+Then open `http://localhost:5173/`.
 
-# Build and run locally
-./mvnw spring-boot:run
-# or
-./mvnw clean package -DskipTests
-java -jar target/dripyard-backend-0.0.1-SNAPSHOT.jar
+Backend expectations:
+- Start a compatible backend at `http://localhost:8080` to fully exercise authenticated and data-backed flows. Without it, pages relying on the API will show loading/error states.
 
-# Run tests
-./mvnw test
+## Common flows
+- Landing page (`index.html` + `main.js`) shows featured products via `apiClient.products.list` and toggles auth UI based on `auth_token`.
+- Cart and Wishlist pages require a logged-in user (JWT in localStorage).
+- Product details and reviews use `apiClient.products.get(...)` and review subroutes.
+- Checkout creates orders via `apiClient.orders.create(...)` and handles payment redirects.
+- Admin pages (products/orders/transactions) call `/api/admin/*` endpoints; expect role-based access on the server.
 
-# Clean build
-./mvnw clean compile
+## Environment and configuration
+- Production host check is domain-based in `api/client.js`. To point staging builds elsewhere, modify `PROD_API_HOST` or `BASE_URL` logic.
+- No .env usage in the frontend; secrets are not embedded. Auth token is stored in `localStorage` as `auth_token`.
 
-# Package for deployment
-./mvnw clean package
-```
+## Development tips
+- Keep UTF‑8 encoding for HTML to avoid garbled characters (meta charset is already present). If you see characters like â‚¹ instead of ₹, ensure editor saves files as UTF‑8.
+- Each page folder is self-contained; prefer reusing utilities in `api/client.js` rather than duplicating fetch logic.
+- Handle API errors gracefully; `api/client.js` throws with status and message excerpt.
 
-### Full Stack Development
-```bash
-# Terminal 1 - Start backend (runs on port 8080)
-cd backend && ./mvnw spring-boot:run
+## Deployment
+- Any static host (Vercel, Netlify, GitHub Pages, S3+CDN) works.
+- Ensure the production domain matches the check in `api/client.js` or adjust accordingly so the frontend talks to the correct backend.
 
-# Terminal 2 - Serve frontend (any port, e.g., 3000)
-python -m http.server 3000
-# Update api/client.js BASE_HOST to 'localhost:8080' for local development
-```
-
-## Architecture
-
-### Page-Based Structure
-The project follows a **directory-per-page architecture** where each major feature/page has its own folder containing:
-- `index.html` - Page markup
-- `styles.css` - Page-specific styles  
-- `script.js` - Page functionality and API interactions
-
-### Key Directories
-
-**Customer-Facing Pages:**
-- `LandingPage/` - Homepage with hero section, product showcase, and branding
-- `categoryPage/` - Product listing with filtering, pagination, and search
-- `productDetails/` - Individual product pages with reviews, variants, and cart actions
-- `cart/` - Shopping cart management
-- `wishlist/` - User wishlist functionality
-- `login/` & `signup/` - Authentication with OTP and password options
-- `orderCheckout/` - Order creation and address management
-- `paymentSuccess/` & `paymentFailure/` - Payment result pages
-- `myOrders/` - Order history and tracking
-- `userProfile/` - User account settings
-- `customerReview/` - Product review submission
-
-**Admin Interface:**
-- `Admin_Dashboard/` - Admin overview with stats
-- `adminProducts/` - Product management (CRUD)
-- `orderManagement/` - Order processing and status updates  
-- `couponManagement/` - Discount code management
-- `adminReviewCheck/` - Review moderation
-
-**Support:**
-- `helpSubmission/` - Customer support ticket system
-- `myTickets/` - User support ticket history
-
-### Shared Components
-
-**API Client (`api/client.js`):**
-- Centralized HTTP client for backend communication
-- JWT token management for authentication
-- RESTful API endpoints for products, cart, wishlist, orders, user management, and admin functions
-- Base URL configured for `localhost:8080`
-
-**Common Patterns:**
-- Each page uses `apiClient` global for backend communication
-- Authentication state managed via localStorage tokens
-- Consistent error handling with toast notifications
-- Responsive design with mobile-first approach
-
-### Data Flow
-
-1. **Authentication:** JWT tokens stored in localStorage, validated on protected routes
-2. **Product Display:** API calls to `/api/products` with pagination and filtering
-3. **Cart Management:** RESTful operations on `/api/cart/*` endpoints
-4. **Order Processing:** Multi-step checkout flow with address and payment handling
-5. **Admin Operations:** Separate admin API endpoints under `/api/admin/*`
-
-## Key Features
-
-- **OTP Authentication:** Development mode uses `123456` for testing (MailerSend integration)
-- **Image Management:** Product images served from `/api/images/{imageId}` endpoint
-- **Responsive Design:** Mobile-friendly layout with CSS Grid and Flexbox
-- **Admin Dashboard:** Separate interface for product and order management
-- **Review System:** Customer reviews with star ratings
-- **Wishlist & Cart:** Full e-commerce cart functionality with quantity controls
-- **Order Tracking:** Status updates and order history
-
-## Backend Technology Stack
-
-**Core Technologies:**
-- Spring Boot 3.3.1 with Java 17
-- Spring Security with JWT authentication
-- Spring Data JPA with MySQL database
-- Maven for build management
-- Lombok for reducing boilerplate code
-
-**Key Dependencies:**
-- **Payment Processing**: Razorpay and Stripe integration
-- **File Storage**: AWS S3 for image uploads
-- **Email Service**: MailerSend integration with Spring Mail
-- **Shipping**: Shiprocket API integration
-- **API Documentation**: SpringDoc OpenAPI (Swagger UI)
-- **Monitoring**: Spring Boot Actuator
-
-## Live API Documentation
-
-**Production API**: https://skillful-nature-production.up.railway.app  
-**Swagger UI**: https://skillful-nature-production.up.railway.app/swagger-ui/index.html
-
-### Core API Endpoints
-
-**Authentication:**
-- `POST /auth/signup` - User registration with OTP
-- `POST /auth/signin` - Login (password or OTP)
-- `POST /auth/sent/login-signup-otp` - Send OTP via email
-
-**Products:**
-- `GET /api/products` - List products with filters (category, color, size, price range)
-- `GET /api/products/{productId}` - Get single product
-- `GET /api/products/{productId}/reviews` - Get product reviews
-- `POST /api/products/{productId}/reviews` - Create review (auth required)
-
-**Cart Management:**
-- `GET /api/cart` - Get user's cart (auth required)
-- `PUT /api/cart/add` - Add item to cart (auth required)
-- `PUT /api/cart/item/{cartItemId}` - Update cart item (auth required)
-- `DELETE /api/cart/item/{cartItemId}` - Remove cart item (auth required)
-
-**Wishlist:**
-- `GET /api/wishlist` - Get user's wishlist (auth required)
-- `POST /api/wishlist/add-product/{productId}` - Add to wishlist (auth required)
-- `DELETE /api/wishlist/{productId}` - Remove from wishlist (auth required)
-
-**Orders:**
-- `POST /api/orders/` - Create order with Razorpay payment link (auth required)
-- `GET /api/orders/{id}` - Get order details (auth required)
-- `GET /api/orders/user` - Get user's order history (auth required)
-- `PUT /api/orders/{orderId}/cancel` - Cancel order (auth required)
-
-**User Management:**
-- `GET /api/users/profile` - Get user profile (auth required)
-- `GET /api/users/transactions` - Get user transactions (auth required)
-
-**Admin Operations:**
-- `GET /api/admin/products` - List all products
-- `POST /api/admin/products` - Create product (admin only)
-- `DELETE /api/admin/products/{productId}` - Delete product (admin only)
-- `GET /api/admin/orders` - List all orders (admin only)
-- `PATCH /api/admin/orders/{orderId}/status` - Update order status (admin only)
-- `GET /api/admin/transactions` - Get all transactions (admin only)
-
-**Coupons:**
-- `GET /api/coupons/admin/all` - List all coupons
-- `POST /api/coupons/admin/create` - Create coupon
-- `DELETE /api/coupons/admin/delete/{id}` - Delete coupon
-- `POST /api/coupons/apply` - Apply coupon to cart (auth required)
-
-**Images:**
-- `GET /api/images/{key}` - Get image by key/ID
-- `POST /api/images/upload` - Upload product image
-
-**Support:**
-- `POST /helpdesk/submit` - Submit support ticket
-- `GET /helpdesk/tickets` - Get all tickets (admin)
-- `GET /helpdesk/tickets/{id}` - Get specific ticket
-
-### Authentication
-Most endpoints require `Authorization: Bearer <jwt_token>` header. JWT tokens are returned from signin/signup endpoints.
-
-### Database Schema
-The backend uses MySQL with JPA entities for:
-- `User` (with roles: ADMIN, CUSTOMER, SELLER)
-- `Product` (with categories, images, reviews)
-- `Cart` and `CartItem`
-- `Order` and `OrderItem`
-- `Wishlist`
-- `Review` and `Rating`
-- `Address` and `PaymentDetails`
-- `Coupon` and `Transaction`
-
-## Development Notes
-
-### Frontend
-- No build process required - direct file serving works
-- Pages can be tested independently but require backend API for data
-- Update `api/client.js` BASE_HOST for local vs production backend
-
-### Backend
-- Runs on port 8080 by default
-- MySQL database required (configure in application.properties)
-- Environment variables needed for AWS S3, payment gateways, email service
-- Admin pages require authentication with ROLE_ADMIN
-- OTP development mode uses `123456` when MailerSend domain not verified
+## Quick reference
+- Entry: `index.html`
+- Global assets: `assets/`
+- API definitions: `api/openapi.json`
+- API wrapper: `api/client.js`
+- Auth token key: `auth_token` (localStorage)

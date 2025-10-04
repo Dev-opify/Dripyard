@@ -1,6 +1,8 @@
 (function(){
-  const BASE_HOST = 'localhost:8080';
-  const BASE_URL = `http://${BASE_HOST}`;
+  const PROD_API_HOST = 'skillful-nature-production.up.railway.app';
+  const BASE_URL = (typeof location !== 'undefined' && location.hostname === 'dripyardwebsite.vercel.app')
+    ? `https://${PROD_API_HOST}`
+    : 'http://localhost:8080';
 
   function getToken(){
     try { return localStorage.getItem('auth_token') || null; } catch { return null; }
